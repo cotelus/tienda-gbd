@@ -115,6 +115,8 @@
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <div class="text-center">
+                <!-- icono del carrito -->
+                <a type='button' href='carrito.php' class='btn btn-primary my-2 my-sm-0'>Carrito</a>
                 <!-- Para personalizarlo aún mas, si el usuario ha iniciado sesión, no aparecerán los botones de login/registro, sino que se le saludará -->
                 <?php
                     if(isset($username)){
@@ -134,8 +136,19 @@
   <h3>Tu comercio local, ahora tambien online</h3>
 </div>
 
+<!-- Contenido principal del INDEX - productos -->
 <div class="container-fluid">
+    <div class="row">
+        <!-- Producto individual -->
+        <div class="">   
 
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container-fluid">
     <!-- modal de login -->
     <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
