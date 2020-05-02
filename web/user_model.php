@@ -11,7 +11,7 @@ class UserModel{
     public function login($username, $password){
         try{
             $db = Db::conectar();
-            $result = $db->prepare("SELECT * FROM usuarios WHERE user= :login AND password= :password");
+            $result = $db->prepare("SELECT * FROM usuarios WHERE nombre= :login AND contrasena= :password");
             $result->bindValue(":login", $username);
             $result->bindValue(":password", $password);
             $result->execute();
@@ -39,7 +39,7 @@ class UserModel{
             $db = Db::conectar();
 
             // Lo primero va a ser comprobar si existe este usuario.
-            $sql = $db->prepare("SELECT * FROM usuarios WHERE user= :username");
+            $sql = $db->prepare("SELECT * FROM usuarios WHERE nombre= :username");
             $sql->bindValue(":username", $username);
             $sql->execute();
 
@@ -47,7 +47,7 @@ class UserModel{
 
             // Si no devuelve columnas, el nombre de usuario está libre, es decir, se puede crear uno nuevo 
             if($num_registro==0){
-                $sql = $db->prepare("INSERT INTO `usuarios`( `user`, `password`) VALUES (:username, :password)");
+                $sql = $db->prepare("INSERT INTO `usuarios`( `nombre`, `contrasena`) VALUES (:username, :password)");
                 $sql->bindValue(":username", $username);
                 $sql->bindValue(":password", $password);
 
