@@ -1,4 +1,13 @@
 .card img{
     height: 300px;
-    object-fit: fill;
+    object-fit: cover;
+}
+
+
+a {
+    color: #ffffff;
+}
+
+a:hover{
+    color: #f6e0c2;
 }

@@ -13,9 +13,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Tienda</title>
+  <title>Latiende Sita</title>
+  <link rel="shortcut icon" href="img/bs-icon.png" />
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="style/custom.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -94,9 +96,7 @@
             <li class="nav-item active">
                 <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Nosotros</a>
-            </li>
+            <!-- No habrá catálogo en esta versión 
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Catálogo
@@ -106,6 +106,8 @@
                     <a class="dropdown-item" href="#">Mostrar todo</a>
                 </div>
             </li>
+            -->
+            <!-- No habrá pagina de contacto en esta versión 
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Contacta
@@ -115,6 +117,7 @@
                     <a class="dropdown-item" href="#">Trabaja con nosotros</a>
                 </div>
             </li>
+            -->
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <div class="text-center">
@@ -147,14 +150,14 @@
             $productList=ProductModel::getProductList();
             foreach ($productList as $product){
         ?>
-            <div class="col-3">
+            <div class="col-12 col-md-6 col-lg-3 col-xl-2">
                 <div class="card">
                     <img src=<?php echo $product[1]?>>
                     <div class="card-body">
                         <span><?php echo $product[0]?></span>
                         <h5 class="card-title"><?php echo $product[2]?>€</h5>
 
-                        <button class="btn btn-primary" >Agregar al carrito </button>
+                        <button class="btn btn-primary" >Agregar al carrito</button>
                     </div>  
                 </div>
             </div>
@@ -231,19 +234,63 @@
 <!-- Espacio en blanco -->
 <div style="height:1000px; width:100%; clear:both;"></div>
 
+<!-- 
 <div style="z-index: 2;"class="alert alert-warning alert-dismissible fade show fixed-bottom" role="alert"> Utilizamos cookies para asegurar que damos la mejor experiencia al usuario en nuestro sitio web. Si continúa utilizando este sitio asumiremos que 
     <strong> está de acuerdo.</strong>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
+  -->
 
 <!-- Footer -->
+<!-- 
 <footer style="z-index: 1;"class="page-footer font-small blue relative-bottom">
-    <!-- Copyright -->
     <div class="footer-copyright text-center py-3">© 2020 Copyright:
       <a href="#"> Luis Cotelo</a>
     </div>
 </footer>
+            -->
+
+
+<footer class="container-fluid page-footer font-small blue">
+    <div class="row bg-secondary">
+        <div class="col-12 py-5">
+            <div class="mb-2 text-center">
+                <!-- Facebook -->
+                <a class="fb-ic" href="https://www.facebook.com">
+                    <i class="fab fa-facebook-f fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+                </a>
+                <!-- Twitter -->
+                <a class="tw-ic" href="https://www.twitter.com">
+                    <i class="fab fa-twitter fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+                </a>
+                <!-- Google +-->
+                <a class="gplus-ic" href="https://www.google.com">
+                    <i class="fab fa-google-plus-g fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+                </a>
+                <!--Linkedin -->
+                <a class="li-ic"  href="https://www.linkedin.com">
+                    <i class="fab fa-linkedin-in fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+                </a>
+                <!--Instagram-->
+                <a class="ins-ic"  href="https://www.instagram.com">
+                    <i class="fab fa-instagram fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
+                </a>
+                <!--Pinterest-->
+                <a class="pin-ic"  href="https://www.pinterest.com">
+                    <i class="fab fa-pinterest fa-lg white-text fa-2x"> </i>
+                </a>
+            </div>
+        </div>
+        <div class="col-12 footer-copyright text-center bg-dark py-3 text-light">© 2020 Copyright:
+            <a href="https://www.cotelo.es" class="text-secundario">Luis Cotelo</a>
+        </div>
+    </div>
+</footer>
+
+
+
+
 </body>
 </html>
