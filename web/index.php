@@ -6,8 +6,13 @@
         $username = $_SESSION["username"];
     }
 
+    if(!isset($_SESSION["cart"])){
+        $_SESSION["cart"] = array();
+    }
+
     // Hago los includes necesarios
     include 'product_model.php';
+    $productList = array();
 ?>
 
 <!DOCTYPE html>
@@ -40,6 +45,21 @@
     <?php
     }
 ?>
+
+
+<?php
+    if(isset($_GET["cart"]) && $_GET["cart"] == 23){
+    ?>
+        <script type="text/javascript">
+            $(window).on('load',function(){
+                $('#carritoForm').modal('show');
+                $('#cartAdd').append( "Nuevos productos añadidos" );
+            });
+        </script>
+    <?php
+    }
+?>
+
 <?php
     if(isset($_GET["wrongLogin"]) && $_GET["wrongLogin"] == 1){
     ?>
@@ -122,7 +142,15 @@
         <form class="form-inline my-2 my-lg-0">
             <div class="text-center">
                 <!-- icono del carrito -->
-                <a type='button' href='carrito.php' class='btn btn-primary my-2 my-sm-0'>Carrito</a>
+                <a type='button' href='' class='mr-3 btn btn-primary my-2 my-sm-0' data-toggle='modal' data-target='#carritoForm'><i class="fas fa-shopping-cart"></i> Carrito
+                    <?php 
+                        if(count($_SESSION["cart"]) != 0){
+                            echo "(";
+                            echo count($_SESSION["cart"]);
+                            echo ")"; 
+                        }
+                    ?>
+                </a>
                 <!-- Para personalizarlo aún mas, si el usuario ha iniciado sesión, no aparecerán los botones de login/registro, sino que se le saludará -->
                 <?php
                     if(isset($username)){
@@ -150,48 +178,81 @@
             $productList=ProductModel::getProductList();
             foreach ($productList as $product){
         ?>
-            <div class="mb-3 col-12 col-md-6 col-lg-3 col-xl-2">
+            <div class="mb-3 col-12 col-md-6 col-lg-3">
                 <div class="card">
                     <!-- marcador de oferta -->
-                    <?php if($product[3] != 0){ ?>
+                    <?php if($product[4] != 0){ ?>
                         <div class="align-middle position-absolute">
-                            <h3 class="bg-danger text-light">OFERTA  -<?php echo $product[3]; ?>%</h3>
+                            <h3 class="bg-danger text-light">OFERTA  -<?php echo $product[4]; ?>%</h3>
                         </div>
                     <?php } ?>
                     <!-- imagen -->
-                    <img src=<?php echo $product[1]?>>
-                    <div class="card-body">
+                    <img src=<?php echo $product[2]?>>
+                    <form action='add_product.php' method='post' class="card-body">
                         <!-- Nombre -->
-                        <h4><?php echo $product[0]?></h4>
+                        <h4><?php echo $product[1]?></h4>
+                        <!-- ID (oculto) -->
+                        <input type="hidden" name="id" value="<?php echo $product[0]?>">
                         <!-- Precio y oferta -->
                         <h5 class="card-title"><?php 
-                            if($product[3] == 0){
-                                echo $product[2];
+                            if($product[4] == 0){
+                                echo $product[3];
                                 echo "€";
                             }else{
                                 //print ("<span style='text-decoration:line-through;'>" + (string)$product[2] + "</span>");
                                 echo "<span style='text-decoration:line-through;'>";
-                                echo $product[2];
+                                echo $product[3];
                                 echo "€</span>";
                                 echo "<span class='text-danger'> ";
-                                $valorOferta = $product[2] * ((100 - $product[3])/100);
+                                $valorOferta = $product[3] * ((100 - $product[4])/100);
                                 echo $valorOferta;
                                 echo "€</span>";
                             }
                         ?></h5>
                         <!-- Botón de configuración ( solo visible para administradores ) -->
                         <a class="float-right"><i class="fas fa-cog"></i></a>
-                        <button class="btn btn-primary" >Agregar al carrito</button>
-                    </div>  
+                        <button type="submit" class="btn btn-primary" >Agregar al carrito</button>
+                    </form>  
                 </div>
             </div>
         <?php } ?>
+
     </div>
 </div>
 
 
 <!-- Modales -->
 <div class="container-fluid">
+    <!-- modal del carrito -->
+    <div class="modal fade" id="carritoForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center bg-primary text-light">
+                    <h4 class="modal-title w-100 font-weight-bold">Carrito <i class="fas fa-shopping-cart"></i></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-3">
+                    <form action="comprueba_login.php" method="POST">
+                        <h4 class="text-success" id="cartAdd"></h4>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Usuario</label>
+                            <input type="text" class="form-control" id="exampleInputEmail1" name="username" aria-describedby="emailHelp" placeholder="Introduzca su usuario" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">asd</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Introduzca su contraseña" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary float-right">Enviar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
     <!-- modal de login -->
     <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">

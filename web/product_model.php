@@ -31,6 +31,7 @@ class ProductModel{
             $contador = 0;
             while($row = $sql->fetch(PDO::FETCH_ASSOC)){
                 $productList[$contador]=array(
+                    $row['id'],
                     $row['nombre'], 
                     $row['imagen'],
                     $row['precio'],
