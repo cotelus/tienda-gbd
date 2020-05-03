@@ -33,7 +33,8 @@ class ProductModel{
                 $productList[$contador]=array(
                     $row['nombre'], 
                     $row['imagen'],
-                    $row['precio']
+                    $row['precio'],
+                    $row['oferta']
                 );
                 $contador++;
             }

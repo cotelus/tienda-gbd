@@ -150,13 +150,37 @@
             $productList=ProductModel::getProductList();
             foreach ($productList as $product){
         ?>
-            <div class="col-12 col-md-6 col-lg-3 col-xl-2">
+            <div class="mb-3 col-12 col-md-6 col-lg-3 col-xl-2">
                 <div class="card">
+                    <!-- marcador de oferta -->
+                    <?php if($product[3] != 0){ ?>
+                        <div class="align-middle position-absolute">
+                            <h3 class="bg-danger text-light">OFERTA  -<?php echo $product[3]; ?>%</h3>
+                        </div>
+                    <?php } ?>
+                    <!-- imagen -->
                     <img src=<?php echo $product[1]?>>
                     <div class="card-body">
-                        <span><?php echo $product[0]?></span>
-                        <h5 class="card-title"><?php echo $product[2]?>€</h5>
-
+                        <!-- Nombre -->
+                        <h4><?php echo $product[0]?></h4>
+                        <!-- Precio y oferta -->
+                        <h5 class="card-title"><?php 
+                            if($product[3] == 0){
+                                echo $product[2];
+                                echo "€";
+                            }else{
+                                //print ("<span style='text-decoration:line-through;'>" + (string)$product[2] + "</span>");
+                                echo "<span style='text-decoration:line-through;'>";
+                                echo $product[2];
+                                echo "€</span>";
+                                echo "<span class='text-danger'> ";
+                                $valorOferta = $product[2] * ((100 - $product[3])/100);
+                                echo $valorOferta;
+                                echo "€</span>";
+                            }
+                        ?></h5>
+                        <!-- Botón de configuración ( solo visible para administradores ) -->
+                        <a class="float-right"><i class="fas fa-cog"></i></a>
                         <button class="btn btn-primary" >Agregar al carrito</button>
                     </div>  
                 </div>
@@ -166,7 +190,7 @@
 </div>
 
 
-
+<!-- Modales -->
 <div class="container-fluid">
     <!-- modal de login -->
     <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -231,28 +255,7 @@
     </div>
 </div>
 
-<!-- Espacio en blanco -->
-<div style="height:1000px; width:100%; clear:both;"></div>
-
-<!-- 
-<div style="z-index: 2;"class="alert alert-warning alert-dismissible fade show fixed-bottom" role="alert"> Utilizamos cookies para asegurar que damos la mejor experiencia al usuario en nuestro sitio web. Si continúa utilizando este sitio asumiremos que 
-    <strong> está de acuerdo.</strong>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  -->
-
-<!-- Footer -->
-<!-- 
-<footer style="z-index: 1;"class="page-footer font-small blue relative-bottom">
-    <div class="footer-copyright text-center py-3">© 2020 Copyright:
-      <a href="#"> Luis Cotelo</a>
-    </div>
-</footer>
-            -->
-
-
+<!-- FOOTER -->
 <footer class="container-fluid page-footer font-small blue">
     <div class="row bg-secondary">
         <div class="col-12 py-5">
