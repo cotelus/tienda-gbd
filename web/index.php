@@ -224,6 +224,7 @@
 <!-- Modales -->
 <div class="container-fluid">
     <!-- modal del carrito -->
+                            <!-- Este carrito es temporal, solo muestra el id del producto que se ha añadido -->
     <div class="modal fade" id="carritoForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -234,17 +235,23 @@
                     </button>
                 </div>
                 <div class="modal-body mx-3">
-                    <form action="comprueba_login.php" method="POST">
+                    <form action="#" method="POST">
                         <h4 class="text-success" id="cartAdd"></h4>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Usuario</label>
-                            <input type="text" class="form-control" id="exampleInputEmail1" name="username" aria-describedby="emailHelp" placeholder="Introduzca su usuario" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">asd</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Introduzca su contraseña" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary float-right">Enviar</button>
+                        
+                        <?php 
+                            if(count($_SESSION["cart"]) > 0){
+                                for ($i=1; $i <= count($_SESSION["cart"]); $i++){ 
+                                    echo $_SESSION["cart"][$i]["id"];
+                                    echo " -> ";
+                                    echo $_SESSION["cart"][$i]["nombre"];
+                                    echo "<br>";
+                                }
+                            }
+                            
+                        ?>
+
+
+                        <button type="submit" class="btn btn-primary float-right">Proceder al pago</button>
                     </form>
                 </div>
             </div>
