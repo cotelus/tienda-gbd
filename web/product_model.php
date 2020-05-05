@@ -45,11 +45,53 @@ class ProductModel{
         $nombre = "";
         $id = $gId;
         $precio = 0;
-        $precio_final = 0;
         $oferta = 0;
         $imagen = "";
 
+        $myJSON = null;
 
+        try{
+            $db = Db::conectar();
+
+            // Lo primero va a ser comprobar si existe un producto con este ID
+            $sql = $db->prepare("SELECT * FROM productos WHERE id= :id");
+            $sql->bindValue(":id", $id);
+            $sql->execute();
+
+            if($row = $sql->fetch(PDO::FETCH_ASSOC)){
+
+                // Se enlazan los parámetros
+                $id = $row['id'];
+                $nombre = $row['nombre'];
+                $imagen = $row['imagen'];
+                $oferta = $row['oferta'];
+                $precio = $row['precio'];
+
+
+                $producto = [
+                    [
+                      "nombre" => $nombre,
+                      "id" => $id,
+                      "precio" => $precio,
+                      "oferta" => $oferta,
+                      "imagen" => $imagen
+                    ]
+                  ];
+                // Se guarda producto como JSON
+                //$producto = "{'nombre':'$nombre', 'id':'$id', 'precio':'$precio', 'oferta':'$oferta', 'imagen':'$imagen'}";
+                
+
+                // Al no poder enviar objetos entre ficheros, hay que recurrir a codificar y decodificar JSON
+                $myJSON = json_encode($producto);
+            }
+            // Se cierra la conexión
+            $db = Db::cerrarConexion();
+
+            return $myJSON;
+
+        }catch(Exception $e){
+            die("Error: " . $e->getMessage());
+        }
     }
 }
 ?>

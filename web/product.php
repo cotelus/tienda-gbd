@@ -17,13 +17,13 @@
             $this->precio = $precio;
             $this->oferta = $oferta;
             $this->imagen = $imagen;
-            $this->precio_final = $this->precio * ((100 - $this->oferta)/100);
+            $this->precio_final = (double)$this->precio * ((100 - (double)$this->oferta)/100);
         }
 
         // Funciones get/set
             // get
         public function getNombre(){
-            return $this->name;
+            return $this->nombre;
         }
         public function getPrecioFinal(){
             return $this->precio_final;
