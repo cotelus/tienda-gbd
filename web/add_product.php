@@ -4,7 +4,7 @@
     // Para no recargar la página, odría usarse AJAX o algún otro lenguaje de llamadas asíncronas.
 
 require('product_model.php');
-require('product.php');
+//include('product.php');
 
 // Se comprueba que existe el id del producto seleccionado
 if (isset($_POST['id'])) {
@@ -19,8 +19,25 @@ if (isset($_POST['id'])) {
             if(!isset($_SESSION["cart"])){
                 $_SESSION["cart"] = array();
             }
+
+            // 
+            $nombre = "otro nombre";
             $tamano = count($_SESSION["cart"]) + 1;
-            $_SESSION["cart"][$tamano] = array('id' => $id, 'nombre' => 'otro_nombre');
+            // Si el producto ya estaba añadido al carrito, se le suma en 1 la cantidad.
+            $cantidad = 1;
+            // Hay que recorrer el array porque es multidimensional y no hay una función específica de php que obtenga el valor
+            foreach($_SESSION["cart"] as $key => $producto){
+                //if ($producto['id'] == $id {
+                    //$cantidad = $producto["cantidad"];
+                    // Se cambia también el tamaño para que realmente no sea tamaño, sino la posición
+                //}
+                $tempId = $producto["id"];
+                if($tempId == $id){
+                    $cantidad = $producto["cantidad"] + 1;
+                    $tamano = $key;
+                }
+            }
+            $_SESSION["cart"][$tamano] = array('id' => $id, 'nombre' => $nombre, 'cantidad' => $cantidad);
 
 // Si existe en la BBDD el producto con ID = X -> se inicia la sesión (start_session())
 

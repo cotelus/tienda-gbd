@@ -199,7 +199,6 @@
                                 echo $product[3];
                                 echo "€";
                             }else{
-                                //print ("<span style='text-decoration:line-through;'>" + (string)$product[2] + "</span>");
                                 echo "<span style='text-decoration:line-through;'>";
                                 echo $product[3];
                                 echo "€</span>";
@@ -244,6 +243,8 @@
                                     echo $_SESSION["cart"][$i]["id"];
                                     echo " -> ";
                                     echo $_SESSION["cart"][$i]["nombre"];
+                                    echo " -> ";
+                                    echo $_SESSION["cart"][$i]["cantidad"];
                                     echo "<br>";
                                 }
                             }
