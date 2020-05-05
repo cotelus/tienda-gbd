@@ -24,6 +24,7 @@ Por otra parte, al no hacer uso de tecnologías de comunicación asíncrona, la 
 8. Se ha creado una clase para la gestión de los datos de tipo Usuario recibidos de la BBDD.
 9. Funcionalidad del carrito completada al 50%.
 10. Vista del carrito completada al 50% (provisional para identificar datos).
+11. Creada sección del usuario para que modifique sus datos.
 
 ## 3.- ¿Cómo se ha hecho?
 He ido avanzando poco a poco, terminando elementos funcionales o casi funcionales pequeños que han hecho crecer la página. 
