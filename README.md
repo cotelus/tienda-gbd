@@ -43,6 +43,6 @@ En este momento, queda por terminar:
 4. Añadir motor de plantillas para la vista de la administración de los productos.
 5. Añadir vista de la administración de productos.
 6. Añadir sección de confirmar pago que realice las comprobaciones pertinentes sobre productos, precio y stock.
-7. Cambiar almacenamiento del carrito de sesiones a cookies
+7. Cambiar almacenamiento del carrito de sesiones a cookies.
 8. Añadir pasarela de pago. 
 

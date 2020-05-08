@@ -47,6 +47,9 @@
 ?>
 
 
+<!-- 
+    Solo comprueba si ha recibido un parámetro por GET para cambiar una parte de la vista (que el carrito ponga "producto añadido")
+-->
 <?php
     if(isset($_GET["cart"]) && $_GET["cart"] == 23){
     ?>
@@ -60,6 +63,9 @@
     }
 ?>
 
+<!-- 
+    comprueba si se viene de hacer un login mal
+-->
 <?php
     if(isset($_GET["wrongLogin"]) && $_GET["wrongLogin"] == 1){
     ?>
@@ -114,7 +120,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="index.php">Inicio <span class="sr-only">(current)</span></a>
             </li>
             <!-- No habrá catálogo en esta versión 
             <li class="nav-item dropdown">
