@@ -244,6 +244,11 @@
                         <h4 class="text-success" id="cartAdd"></h4>
                         
                         <?php 
+                        // Comprueba todos los elementos almacenados en el carrito y muestra una versión simplificada
+                        /*
+        $_SESSION["cart"][$tamano] = array('id' => $producto->getId(), 'nombre' => $producto->getNombre(), 'cantidad' => $cantidad, 'imagen' => $producto->getImagen(), 
+        'precioFinal' => $producto->getPrecioFinal(), 'precio' => $producto->getPrecio(), 'oferta' => $producto->getOferta());
+        */                  /*
                             if(count($_SESSION["cart"]) > 0){
                                 for ($i=1; $i <= count($_SESSION["cart"]); $i++){ 
                                     echo $_SESSION["cart"][$i]["id"];
@@ -253,9 +258,10 @@
                                     echo $_SESSION["cart"][$i]["cantidad"];
                                     echo "<br>";
                                 }
-                            }
+                            }*/
                             
                         ?>
+                        <h2>NUEVOCARRO</h2>
 
 
                         <button type="submit" class="btn btn-primary float-right">Proceder al pago</button>

@@ -40,8 +40,8 @@ class ProductModel{
     }
 
 
-    // A partir de un ID, va a devolver un producto completo
-    public function getProduct($gId){
+    // A partir de un ID, va a devolver un producto en modo simple
+    public function getSimpleProduct($gId){
         $nombre = "";
         $id = $gId;
         $precio = 0;

@@ -41,14 +41,15 @@ foreach($_SESSION["cart"] as $key => $producto){
 // Si el producto ya estaba en el carrito, solo se aumenta su cantidad, no se vuelve a realizar la petición
 if(!$yaEstaba){
     // Petición a product_model para obtener los datos del producto
-    $productoJSON = ProductModel::getProduct($id);
+    $productoJSON = ProductModel::getSimpleProduct($id);
     if($productoJSON != null){
         // Se decodifica el JSON obtenido
         $productoJSON = json_decode($productoJSON, true);
         $producto = new Product($productoJSON[0]["nombre"], $productoJSON[0]["id"], $productoJSON[0]["precio"], $productoJSON[0]["oferta"], $productoJSON[0]["imagen"]);
 
         // Hay que modificar la sesion para que muestre los datos mejor
-        $_SESSION["cart"][$tamano] = array('id' => $producto->getId(), 'nombre' => $producto->getNombre(), 'cantidad' => $cantidad);
+        $_SESSION["cart"][$tamano] = array('id' => $producto->getId(), 'nombre' => $producto->getNombre(), 'cantidad' => $cantidad, 'imagen' => $producto->getImagen(), 
+            'precioFinal' => $producto->getPrecioFinal(), 'precio' => $producto->getPrecio(), 'oferta' => $producto->getOferta());
     }else{
         // Si devuelve null, es que no ha encontrado el id, por tanto se vuelve al index
         header("location:index.php");
