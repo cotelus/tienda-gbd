@@ -54,8 +54,12 @@ $yaEstaba = false;
 foreach($_SESSION["cart"] as $key => $producto){
     $tempId = $producto["id"];
     if($tempId == $id){
-        // Se suma uno a la cantidad original
-        $cantidad = $producto["cantidad"] + 1;
+        // Se suma uno a la cantidad original, pero teniendo máximo 15
+        if($producto["cantidad"] < 15){
+            $cantidad = $producto["cantidad"] + 1;
+        }else{
+            $cantidad = 15;
+        }
         // Se cambia también el tamaño para que realmente no sea tamaño, sino la posición
         $tamano = $key;
         // $yaEstaba se cambia a true y se ahorra la petición a la BBDD de sus componentes luego

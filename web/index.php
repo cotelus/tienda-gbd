@@ -49,16 +49,27 @@
     Solo comprueba si ha recibido un parámetro por GET para cambiar una parte de la vista (que el carrito ponga "producto añadido")
 -->
 <?php
-    if(isset($_GET["cart"]) && $_GET["cart"] == 23){
+    if(isset($_GET["cart"])){
         if(count($_SESSION["cart"]) > 0){
+            if( $_GET["cart"] == 23){
     ?>
-        <script type="text/javascript">
-            $(window).on('load',function(){
-                $('#carritoForm').modal('show');
-                $('#cartAdd').append( "Nuevos productos añadidos" );
-            });
-        </script>
+                <script type="text/javascript">
+                    $(window).on('load',function(){
+                        $('#carritoForm').modal('show');
+                        $('#cartAdd').append( "Nuevos productos añadidos" );
+                    });
+                </script>
     <?php
+            }elseif($_GET["cart"] == 24){
+            ?>
+                <script type="text/javascript">
+                        $(window).on('load',function(){
+                            $('#carritoForm').modal('show');
+                            $('#cartAdd').append( "Carrito actualizado" );
+                        });
+                </script>
+    <?php
+            }
         }
     }
 ?>
@@ -275,7 +286,11 @@
                             <?php
                                 } 
                             ?>
-                            <button type="submit" class="btn btn-primary float-right">Proceder al pago</button>
+                            <div class="mb-5 row col-12">
+                                <h5 class="col-6 text-right">Total: </h5><h5 class="col-6" id="total-carrito"> <?php echo $total?> €</h5>
+                            </div>
+                            <button type="submit" name="pagar" class="btn btn-primary float-right">Proceder al pago</button>
+                            <button type="submit" name="actualizar" class="btn btn-warning float-right mr-3">Actualizar carrito</button>
                         </form>
                     </div>
                 </div>

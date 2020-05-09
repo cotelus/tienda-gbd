@@ -6,15 +6,9 @@
     session_start();
     print_r($_POST["index-id"]);
     print_r($_POST["index-cantidad"]);
-
-    echo "<br>";
-    echo "<br>";
-    echo "<br>";
-    echo "<br>";
-    echo "<br>";
    
     if(isset($_POST["index-id"]) && isset($_POST["index-cantidad"])){
-        for($i = 1; $i < 6; $i++){
+        for($i = 1; $i <= count($_SESSION["cart"]) ; $i++){
             echo $_POST["index-id"][$i];
             echo "-";
             echo $_POST["index-cantidad"][$i];
@@ -23,5 +17,10 @@
         }
     }
 
-    header("location:index.php?cart=23");
+    // Si se pulsó el botón actualizar, se devuelve al index
+    if(isset($_POST["actualizar"])){
+        echo "voy a actualizar <br>";
+       header("location:index.php?cart=24");
+    }
+    //header("location:index.php?cart=23");
 ?>
