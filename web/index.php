@@ -237,7 +237,7 @@
                         </button>
                     </div>
                     <div class="modal-body mx-3">
-                        <form action="#" method="POST">
+                        <form action="check_buy.php" method="POST">
                             <h4 class="text-success text-center" id="cartAdd"></h4>
                             <?php 
                                 $total = 0;
@@ -250,6 +250,7 @@
                             ?>
                                 <div class="mb-5 row col-12">
                                     <!-- Imagen -->
+                                    <input type="hidden" name="index-id[<?php echo $key?>]" value="<?php echo $producto["id"]?>">
                                     <div class="col-4 col-lg-2">
                                         <img width="125" style="display: inline;" src=<?php echo $producto["imagen"] ?> class="img-fluid producto-imagen">
                                     </div>
@@ -261,7 +262,7 @@
                                             <h6>Cantidad: <input type="number" id="producto-carro-<?php echo $producto["id"] ?>" value="<?php echo $producto["cantidad"] ?>" min="1" max="15" step="1"/></h6>
                                         </div> -->
                                         <div class="text-left row col-lg-6 col-12">
-                                            <h6 class="col-12">Cantidad: <input type="number" id="producto-carro-<?php echo $producto["id"] ?>" value="<?php echo $producto["cantidad"] ?>" min="1" max="15" step="1"/></h6>
+                                            <h6 class="col-12">Cantidad: <input type="number" id="producto-carro<?php echo $producto["id"] ?>" name="index-cantidad[<?php echo $key?>]" value="<?php echo $producto["cantidad"] ?>" min="1" max="15" step="1"/></h6>
                                             <a href="add_product.php?remove=<?php echo $producto["id"] ?>" class="col-12 text-danger">Eliminar</a>
                                         </div>
                                         <!-- Precio -->
