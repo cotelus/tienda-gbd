@@ -184,6 +184,15 @@
     <div class="jumbotron text-center">
         <h1>Latiende Sita</h1>
         <h3>Tu comercio local, ahora tambien online</h3>
+        
+
+        <div class="row text-center" >
+            <div class="col-12">
+                <a type="button" class="ml-2 btn btn-danger" href="close_session.php">Cerrar sesión</a>
+                <br>
+            </div>
+        </div>
+
     </div>
 
     <!-- Contenido principal del INDEX - productos -->

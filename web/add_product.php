@@ -26,6 +26,7 @@ if (isset($_GET['remove'])) {
         $index = searchForId($remove, $_SESSION["cart"]);
         if($index != null && is_numeric($index)){
             unset($_SESSION["cart"][$index]);
+            array_values($_SESSION["cart"]);
         }else{
             //header("location:index.php");
         }

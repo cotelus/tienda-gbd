@@ -6,21 +6,32 @@
     session_start();
     print_r($_POST["index-id"]);
     print_r($_POST["index-cantidad"]);
+
+    array_values($_SESSION["cart"]);
+    echo "<br>";
+    print_r($_SESSION["cart"]);
+    echo "<br>";
    
     if(isset($_POST["index-id"]) && isset($_POST["index-cantidad"])){
-        for($i = 1; $i <= count($_SESSION["cart"]) ; $i++){
-            echo $_POST["index-id"][$i];
-            echo "-";
-            echo $_POST["index-cantidad"][$i];
-            echo "<br>";
-            $_SESSION["cart"][$i]["cantidad"] = $_POST["index-cantidad"][$i];
+        //for($i = 1; $i <= count($_SESSION["cart"]) ; $i++){
+        foreach($_SESSION["cart"] as $key => $producto){
+            if($_SESSION["cart"][$key]["cantidad"] != null){
+                echo $_POST["index-id"][$key];
+                echo "-";
+                echo $_POST["index-cantidad"][$key];
+                echo "<br>";
+                $_SESSION["cart"][$key]["cantidad"] = $_POST["index-cantidad"][$key];
+            }
         }
     }
 
     // Si se pulsó el botón actualizar, se devuelve al index
     if(isset($_POST["actualizar"])){
         echo "voy a actualizar <br>";
-       header("location:index.php?cart=24");
+        // En el servidor esto no funciona por algún motivo
+        //header("location:index.php?cart=24");
+        echo "<script>window.location.href='index.php?cart=24';</script>";
+        exit;
     }
     //header("location:index.php?cart=23");
 ?>
