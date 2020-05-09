@@ -186,6 +186,7 @@
         <h3>Tu comercio local, ahora tambien online</h3>
         
 
+        <!-- Botón de depuración temporal -> es para cerrar la sesión y resetear el carrito -->
         <div class="row text-center" >
             <div class="col-12">
                 <a type="button" class="ml-2 btn btn-danger" href="close_session.php">Cerrar sesión</a>
