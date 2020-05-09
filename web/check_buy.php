@@ -13,15 +13,12 @@
     echo "<br>";
    
     if(isset($_POST["index-id"]) && isset($_POST["index-cantidad"])){
-        //for($i = 1; $i <= count($_SESSION["cart"]) ; $i++){
         foreach($_SESSION["cart"] as $key => $producto){
-            if($_SESSION["cart"][$key]["cantidad"] != null){
-                echo $_POST["index-id"][$key];
-                echo "-";
-                echo $_POST["index-cantidad"][$key];
-                echo "<br>";
-                $_SESSION["cart"][$key]["cantidad"] = $_POST["index-cantidad"][$key];
-            }
+            echo $_POST["index-id"][$key];
+            echo "-";
+            echo $_POST["index-cantidad"][$key];
+            echo "<br>";
+            $_SESSION["cart"][$key]["cantidad"] = $_POST["index-cantidad"][$key];
         }
     }
 
@@ -31,7 +28,6 @@
         // En el servidor esto no funciona por algún motivo
         //header("location:index.php?cart=24");
         echo "<script>window.location.href='index.php?cart=24';</script>";
-        exit;
     }
     //header("location:index.php?cart=23");
 ?>
