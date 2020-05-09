@@ -236,7 +236,7 @@
                     </div>
                     <div class="modal-body mx-3">
                         <form action="#" method="POST">
-                            <h4 class="text-success" id="cartAdd"></h4>
+                            <h4 class="text-success text-center" id="cartAdd"></h4>
                             
                             <?php 
                             /*
@@ -253,64 +253,35 @@
                                 }*/
                                 
                             ?>
-                            <h2>NUEVOCARRO</h2>
-                            <div class="row col-12">
-                                <!-- Imagen -->
-                                <div class="col-4 col-lg-2">
-                                    <img width="125" style="display: inline;" src=<?php echo $_SESSION["cart"][1]["imagen"]?> class="img-fluid producto-imagen">
+                            <?php 
+                            $total = 0;
+                            foreach($_SESSION["cart"] as $key => $producto){
+                    
+                                // Va a almacenar el total de los productos y el precio total de este producto
+                                $totalProducto = ($producto["precioFinal"] * $producto["cantidad"]);
+                                $total += $totalProducto;
+                            
+                            ?>
+                                <div class="mb-5 row col-12">
+                                    <!-- Imagen -->
+                                    <div class="col-4 col-lg-2">
+                                        <img width="125" style="display: inline;" src=<?php echo $producto["imagen"] ?> class="img-fluid producto-imagen">
+                                    </div>
+                                    <!-- Nombre, cantidad y precio -->
+                                    <div class="row col-8 col-lg-10">
+                                        <h4 class="col-12"><?php echo $producto["nombre"] ?></h4>
+                                        <!-- Cantidad -->
+                                        <div class="col-lg-6 col-12">
+                                            <h6>Cantidad: <?php echo $producto["cantidad"] ?></h6>
+                                        </div>
+                                        <!-- Precio -->
+                                        <div class="text-right row col-lg-6 col-12">
+                                            <h6 class="col-6">Precio: </h6><h6 class="col-6"> <?php echo $producto["precioFinal"] ?> </h6>
+                                            <h6 class="col-6">Total (<?php echo $producto["cantidad"] ?>): </h6><h6 class="col-6"> <?php echo $totalProducto ?> </h6>
+                                        </div>
+                                    </div> 
                                 </div>
-                                <!-- Nombre, cantidad y precio -->
-                                <div class="row col-8 col-lg-10">
-                                    <h4 class="col-12">POLLO ASADO</h4>
-                                    <!-- Cantidad -->
-                                    <div class="col-lg-6 col-12">
-                                        <h6>Cantidad: 230</h6>
-                                    </div>
-                                    <!-- Precio -->
-                                    <div class="text-right row col-lg-6 col-12">
-                                        <h6 class="col-6">Precio: </h6><h6 class="col-6"> 230€ </h6>
-                                        <h6 class="col-6">Total: </h6><h6 class="col-6"> 230€ </h6>
-                                    </div>
-                                </div> 
-                            </div>
-                            <div class="row col-12">
-                                <!-- Imagen -->
-                                <div class="col-4 col-lg-2">
-                                    <img width="125" style="display: inline;" src=<?php echo $_SESSION["cart"][1]["imagen"]?> class="img-fluid producto-imagen">
-                                </div>
-                                <!-- Nombre, cantidad y precio -->
-                                <div class="row col-8 col-lg-10">
-                                    <h4 class="col-12">POLLO ASADO</h4>
-                                    <!-- Cantidad -->
-                                    <div class="col-lg-6 col-12">
-                                        <h6>Cantidad: 230</h6>
-                                    </div>
-                                    <!-- Precio -->
-                                    <div class="text-right row col-lg-6 col-12">
-                                        <h6 class="col-6">Precio: </h6><h6 class="col-6"> 230€ </h6>
-                                        <h6 class="col-6">Total: </h6><h6 class="col-6"> 230€ </h6>
-                                    </div>
-                                </div> 
-                            </div>
-                            <div class="row col-12">
-                                <!-- Imagen -->
-                                <div class="col-4 col-lg-2">
-                                    <img width="125" style="display: inline;" src=<?php echo $_SESSION["cart"][1]["imagen"]?> class="img-fluid producto-imagen">
-                                </div>
-                                <!-- Nombre, cantidad y precio -->
-                                <div class="row col-8 col-lg-10">
-                                    <h4 class="col-12">POLLO ASADO</h4>
-                                    <!-- Cantidad -->
-                                    <div class="col-lg-6 col-12">
-                                        <h6>Cantidad: 230</h6>
-                                    </div>
-                                    <!-- Precio -->
-                                    <div class="text-right row col-lg-6 col-12">
-                                        <h6 class="col-6">Precio: </h6><h6 class="col-6"> 230€ </h6>
-                                        <h6 class="col-6">Total: </h6><h6 class="col-6"> 230€ </h6>
-                                    </div>
-                                </div> 
-                            </div>
+                            <?php } ?>
                             <button type="submit" class="btn btn-primary float-right">Proceder al pago</button>
                         </form>
                     </div>
