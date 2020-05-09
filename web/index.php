@@ -50,6 +50,7 @@
 -->
 <?php
     if(isset($_GET["cart"]) && $_GET["cart"] == 23){
+        if(count($_SESSION["cart"]) > 0){
     ?>
         <script type="text/javascript">
             $(window).on('load',function(){
@@ -58,6 +59,7 @@
             });
         </script>
     <?php
+        }
     }
 ?>
 <!-- 
@@ -237,29 +239,13 @@
                     <div class="modal-body mx-3">
                         <form action="#" method="POST">
                             <h4 class="text-success text-center" id="cartAdd"></h4>
-                            
                             <?php 
-                            /*
-                            // Comprueba todos los elementos almacenados en el carrito y muestra una versión simplificada
-                                if(count($_SESSION["cart"]) > 0){
-                                    for ($i=1; $i <= count($_SESSION["cart"]); $i++){ 
-                                        echo $_SESSION["cart"][$i]["id"];
-                                        echo " -> ";
-                                        echo $_SESSION["cart"][$i]["nombre"];
-                                        echo " -> ";
-                                        echo $_SESSION["cart"][$i]["cantidad"];
-                                        echo "<br>";
-                                    }
-                                }*/
-                                
-                            ?>
-                            <?php 
-                            $total = 0;
-                            foreach($_SESSION["cart"] as $key => $producto){
+                                $total = 0;
+                                foreach($_SESSION["cart"] as $key => $producto){
                     
-                                // Va a almacenar el total de los productos y el precio total de este producto
-                                $totalProducto = ($producto["precioFinal"] * $producto["cantidad"]);
-                                $total += $totalProducto;
+                                    // Va a almacenar el total de los productos y el precio total de este producto
+                                    $totalProducto = ($producto["precioFinal"] * $producto["cantidad"]);
+                                    $total += $totalProducto;
                             
                             ?>
                                 <div class="mb-5 row col-12">
@@ -270,9 +256,13 @@
                                     <!-- Nombre, cantidad y precio -->
                                     <div class="row col-8 col-lg-10">
                                         <h4 class="col-12"><?php echo $producto["nombre"] ?></h4>
-                                        <!-- Cantidad -->
+                                        <!-- Cantidad 
                                         <div class="col-lg-6 col-12">
-                                            <h6>Cantidad: <?php echo $producto["cantidad"] ?></h6>
+                                            <h6>Cantidad: <input type="number" id="producto-carro-<?php echo $producto["id"] ?>" value="<?php echo $producto["cantidad"] ?>" min="1" max="15" step="1"/></h6>
+                                        </div> -->
+                                        <div class="text-left row col-lg-6 col-12">
+                                            <h6 class="col-12">Cantidad: <input type="number" id="producto-carro-<?php echo $producto["id"] ?>" value="<?php echo $producto["cantidad"] ?>" min="1" max="15" step="1"/></h6>
+                                            <a href="add_product.php?remove=<?php echo $producto["id"] ?>" class="col-12 text-danger">Eliminar</a>
                                         </div>
                                         <!-- Precio -->
                                         <div class="text-right row col-lg-6 col-12">
@@ -281,7 +271,9 @@
                                         </div>
                                     </div> 
                                 </div>
-                            <?php } ?>
+                            <?php
+                                } 
+                            ?>
                             <button type="submit" class="btn btn-primary float-right">Proceder al pago</button>
                         </form>
                     </div>

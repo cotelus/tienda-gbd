@@ -6,15 +6,40 @@
 require_once('product_model.php');
 require_once('product.php');
 
-// Se comprueba que existe el id del producto seleccionado
-if (isset($_POST['id'])) {
-    $id = $_POST['id'];
+// Esta función me va a servir para recorrer el array y buscar el índice que quiero a partir del id
+function searchForId($id, $array) {
+    foreach ($array as $key => $val) {
+        if ($val['id'] === $id) {
+            return $key;
+        }
+    }
+    return null;
+ }
+
+
+ session_start();
+// Se comprueba si se quiere eliminar algún elemento del carrito 
+ //En caso afirmativo, busca el indice del elemento a borrar y lo elimina
+if (isset($_GET['remove'])) {
+    if(is_numeric($_GET['remove'])){
+        $remove = $_GET['remove'];
+        $index = searchForId($remove, $_SESSION["cart"]);
+        if($index != null && is_numeric($index)){
+            unset($_SESSION["cart"][$index]);
+        }else{
+            //header("location:index.php");
+        }
+    }
 }
 
 
+// Se comprueba que existe el id del producto seleccionado, y si no existe se vuelve al index
+if (isset($_POST['id'])) {
+    $id = $_POST['id'];
+}else{
+    header("location:index.php");
+}
 
-// Ahora mismo esto es prueba para comprobar que en el index se coge bien la información
-session_start();
 if(!isset($_SESSION["cart"])){
     $_SESSION["cart"] = array();
 }
@@ -52,7 +77,7 @@ if(!$yaEstaba){
             'precioFinal' => $producto->getPrecioFinal(), 'precio' => $producto->getPrecio(), 'oferta' => $producto->getOferta());
     }else{
         // Si devuelve null, es que no ha encontrado el id, por tanto se vuelve al index
-        header("location:index.php");
+        //header("location:index.php");
     }
 }else{
     $_SESSION["cart"][$tamano]['cantidad'] = $cantidad;
