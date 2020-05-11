@@ -30,6 +30,8 @@ Por otra parte, al no hacer uso de tecnologías de comunicación asíncrona, la 
 13. Añadir funcionalidad de eliminar en el carrito.
 14. Mejorar vista del carrito.
 15. Añadir vista de la administración de productos.
+16. Añadir opción de insertar productos desde la web al admin.
+17. Añadir opción de eliminar productos desde la web al admin.
 
 
 ## 3.- ¿Cómo se ha hecho?
