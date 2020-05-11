@@ -232,7 +232,8 @@
                                     echo $product[3];
                                     echo "€</span>";
                                     echo "<span class='text-danger'> ";
-                                    $valorOferta = $product[3] * ((100 - $product[4])/100);
+                                    // Hago round para que redondée a 2 decimales máximo
+                                    $valorOferta = round(($product[3] * ((100 - $product[4])/100)), 2);
                                     echo $valorOferta;
                                     echo "€</span>";
                                 }

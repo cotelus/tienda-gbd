@@ -22,12 +22,14 @@ Por otra parte, al no hacer uso de tecnologías de comunicación asíncrona, la 
 6. Se ha creado una clase para la conexión con la BBDD.
 7. Se ha creado una clase para la gestión de los datos de tipo Producto recibidos de la BBDD.
 8. Se ha creado una clase para la gestión de los datos de tipo Usuario recibidos de la BBDD.
-9. Funcionalidad del carrito completada al 50%.
-10. Vista del carrito completada al 50% (provisional para identificar datos).
+----------
+9. Funcionalidad del carrito completada al 100%.
+10. Vista del carrito completada al 100%.
 11. Creada sección del usuario para que modifique sus datos.
 12. Añadir selector de cantidades a cada producto del carrito.
 13. Añadir funcionalidad de eliminar en el carrito.
 14. Mejorar vista del carrito.
+15. Añadir vista de la administración de productos.
 
 
 ## 3.- ¿Cómo se ha hecho?
@@ -42,7 +44,6 @@ Con la visión global del problema y los puntos problemáticos y cómo afrontarl
 En este momento, queda por terminar:
 
 1. Registro de nuevos usuarios. (He modificado los elementos necesarios para darse de alta en el sitio, pero no he actualizado esos elementos en la creación de la nueva fila en la BBDD y da error. Es algo muy sencillo de solucionar, pero no es prioritario).
-4. Añadir vista de la administración de productos.
 5. Añadir sección de confirmar pago que realice las comprobaciones pertinentes sobre productos, precio y stock y actualice la BBDD
 6. Cambiar almacenamiento del carrito de sesiones a cookies.
 7. Añadir pasarela de pago. 

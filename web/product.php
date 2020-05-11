@@ -67,7 +67,9 @@
             // El ámbito es privado para no poder usarse fuera, que solo pueda cambiarse el precio final desde dentro de la clase, así se asegura 
             // que no sea modificado el precio final sin ser modificados los anteriores.
         private function calcularPrecioFinal(){
-            $this->precio_final = (double)$this->precio * ((100 - (double)$this->oferta)/100);
+            $aux = (double)$this->precio * ((100 - (double)$this->oferta)/100);
+            round($aux, 2);
+            $this->precio_final = round($aux, 2);
         }
     }
 ?>
