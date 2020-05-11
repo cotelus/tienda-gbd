@@ -49,6 +49,8 @@ if(isset($_POST['actualizar'])){
 if(isset($_POST['nuevo'])){
     // Compruebo que las variables que tienen que llegar por POST existen
     if(isset($_POST["nombre"], $_POST["precio"], $_POST["oferta"], $_POST["imagen"] ) ){
+        // Dado que el id es un valor autoincrementado, pongo un valor basura
+        $id = -1;
         $nombre = $_POST["nombre"];
         $precio = $_POST["precio"];
         $oferta = $_POST["oferta"];
@@ -57,8 +59,7 @@ if(isset($_POST['nuevo'])){
         // Comprobaciones sobre el producto{}
         //$productoModificado = new Product($nombre, $id, $precio, $oferta, $imagen);
         $producto = new Product($nombre, $id, $precio, $oferta, $imagen);
-        $productoNuevo = true;
-        ProductModel::modificaProducto($producto);
+        $productoNuevo = ProductModel::insertProduct($producto);
     }
 
 }
@@ -155,6 +156,12 @@ if(isset($_POST['eliminar'])){
         // Es solo para mostrar que se ha modificado un producto correctamente 
         if(isset($productoModificado)){
             echo "<h3 class='text-success'>Artículo modificado correctamente</h3>";
+        }elseif (isset($productoNuevo)){
+            if($productoNuevo == true){
+                echo "<h3 class='text-success'>Artículo añadido correctamente</h3>";
+            }else{
+                echo "<h3 class='text-danger'>Fallo al añadir artículo</h3>";
+            }
         }
     ?>
 </div>
