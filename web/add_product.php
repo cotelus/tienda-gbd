@@ -88,7 +88,7 @@ if (isset($_POST['id'])) {
                 'precioFinal' => $producto->getPrecioFinal(), 'precio' => $producto->getPrecio(), 'oferta' => $producto->getOferta());
         }else{
             // Si devuelve null, es que no ha encontrado el id, por tanto se vuelve al index
-            //header("location:index.php");
+            echo "<script>window.location.href='index.php';</script>";
         }
     }else{
         $_SESSION["cart"][$tamano]['cantidad'] = $cantidad;
