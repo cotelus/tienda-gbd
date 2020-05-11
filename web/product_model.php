@@ -146,7 +146,7 @@ class ProductModel{
 
             // Si no devuelve columnas, el nombre de producto está libre, es decir, se puede crear uno nuevo 
             if($num_registro==0){
-                $sql = $db->prepare("INSERT INTO `productos` (`id`, `nombre`, `imagen`, `stock`, `precio`, `oferta`) VALUES (NULL, ':nombre', ':imagen', '200', ':precio', ':oferta')");
+                $sql = $db->prepare("INSERT INTO `productos` (`id`, `nombre`, `imagen`, `stock`, `precio`, `oferta`) VALUES (NULL, :nombre, :imagen, '200', :precio, :oferta)");
                 $sql->bindValue(":nombre",  $product->getNombre());
                 $sql->bindValue(":imagen",  $product->getImagen());
                 $sql->bindValue(":precio",  $product->getPrecio());

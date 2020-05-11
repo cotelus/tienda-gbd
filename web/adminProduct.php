@@ -70,6 +70,8 @@ if(isset($_POST['eliminar'])){
     if(isset($_POST["id"], $_POST["nombre"], $_POST["precio"], $_POST["oferta"], $_POST["imagen"] ) ){
         // Se le pide al modelo que elimine el producto con id = $id 
         ProductModel::eliminarProducto($_POST["id"]);
+        // Se muestra el listado de todos los productos
+        echo "<script>window.location.href='adminProduct.php';</script>";
     }
 }
 
