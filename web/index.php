@@ -2,10 +2,13 @@
     // las variables superglobales de sesion deben usarse antes de enviar las cabeceras de la página
 
     session_start();
+
+    // Compruebo si existe el usuario, y si existe lo igualo a la sesion
     if(isset($_SESSION["username"])){
         $username = $_SESSION["username"];
     }
 
+    // Compruebo si existe el carrito y si existe lo igualo a la sesión
     if(!isset($_SESSION["cart"])){
         $_SESSION["cart"] = array();
     }
@@ -235,7 +238,11 @@
                                 }
                             ?></h5>
                             <!-- Botón de configuración ( solo visible para administradores ) -->
-                            <a class="float-right"><i class="fas fa-cog"></i></a>
+                            <?php 
+                                if ( isset($_SESSION["admin"]) && $_SESSION["admin"] === 1){
+                                    echo "<a href='adminProduct.php?id=$product[0]' class='float-right text-secondary'><i class='fas fa-cog'></i></a>";
+                                }
+                            ?>
                             <button type="submit" class="btn btn-primary" >Agregar al carrito</button>
                         </form>  
                     </div>
