@@ -174,6 +174,9 @@
                     <?php
                         if(isset($username)){
                             print "<a type='text' href='user_panel.php' class='my-2 my-sm-0'>Hola, " . $username . "</a>";
+                            if(isset($_SESSION["admin"]) && $_SESSION["admin"] == 1){
+                                print "<a type='button' href='adminProduct.php' class='ml-3 my-2 my-sm-0 button btn btn-warning'>Administrar productos</a>";
+                            }
                         }else{
                             print "<a type='button' href='' class='btn btn-primary my-2 my-sm-0' data-toggle='modal' data-target='#modalLoginForm'>Login</a>";
                             print "<a type='button' href='' class='btn btn-primary my-2 ml-1 my-sm-0' data-toggle='modal' data-target='#modalRegisterForm'>Registrarse</a>";
@@ -296,8 +299,8 @@
                                         </div>
                                         <!-- Precio -->
                                         <div class="text-right row col-lg-6 col-12">
-                                            <h6 class="col-6">Precio: </h6><h6 class="col-6"> <?php echo $producto["precioFinal"] ?> </h6>
-                                            <h6 class="col-6">Total (<?php echo $producto["cantidad"] ?>): </h6><h6 class="col-6"> <?php echo $totalProducto ?> </h6>
+                                            <h6 class="col-6">Precio: </h6><h6 class="col-6"> <?php echo $producto["precioFinal"] ?> €</h6>
+                                            <h6 class="col-6">Total (<?php echo $producto["cantidad"] ?>): </h6><h6 class="col-6"> <?php echo $totalProducto ?> €</h6>
                                         </div>
                                     </div> 
                                 </div>

@@ -93,22 +93,39 @@ class ProductModel{
 
     // Modifica un producto en la BBDD
     public function modificaProducto($producto){
-        $db=Db::conectar();
-        $actualizar=$db->prepare('UPDATE productos SET nombre=:nombre, precio=:precio, oferta=:oferta, imagen=:imagen  WHERE id=:id');
-        /*
-        $actualizar->bindValue('id',$libro->getId());
-        $actualizar->bindValue('nombre',$libro->getNombre());
-        $actualizar->bindValue('autor',$libro->getAutor());
-        */
-        $actualizar->bindValue('id', $producto->getId());
-        $actualizar->bindValue('nombre', $producto->getNombre());
-        $actualizar->bindValue('precio', $producto->getPrecio());
-        $actualizar->bindValue('oferta', $producto->getOferta());
-        $actualizar->bindValue('imagen', $producto->getImagen());
+        try{
+            $db=Db::conectar();
+            $actualizar=$db->prepare('UPDATE productos SET nombre=:nombre, precio=:precio, oferta=:oferta, imagen=:imagen  WHERE id=:id');
+            $actualizar->bindValue('id', $producto->getId());
+            $actualizar->bindValue('nombre', $producto->getNombre());
+            $actualizar->bindValue('precio', $producto->getPrecio());
+            $actualizar->bindValue('oferta', $producto->getOferta());
+            $actualizar->bindValue('imagen', $producto->getImagen());
 
-        $actualizar->execute();
-        
-        $db=Db::cerrarConexion();
+            $actualizar->execute();
+
+            // Se cierra la conexión
+            $db = Db::cerrarConexion();
+        }catch(Exception $e){
+            die("Error: " . $e->getMessage());
+        }
+    }
+
+
+    // Elimina un producto de la BBDD
+    public function eliminarProducto($id){
+        try{
+            $db=Db::conectar();
+            $eliminar=$db->prepare('DELETE FROM productos WHERE id=:id');
+            $eliminar->bindValue('id', $id);
+
+            $eliminar->execute();
+
+            // Se cierra la conexión
+            $db = Db::cerrarConexion();
+        }catch(Exception $e){
+            die("Error: " . $e->getMessage());
+        }
     }
 }
 ?>
