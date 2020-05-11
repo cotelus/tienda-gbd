@@ -67,7 +67,7 @@ class ProductModel{
                 $oferta = $row['oferta'];
                 $precio = $row['precio'];
 
-
+                // Se añaden al array $producto
                 $producto = [
                     [
                       "nombre" => $nombre,
@@ -77,11 +77,8 @@ class ProductModel{
                       "imagen" => $imagen
                     ]
                   ];
-                // Se guarda producto como JSON
-                //$producto = "{'nombre':'$nombre', 'id':'$id', 'precio':'$precio', 'oferta':'$oferta', 'imagen':'$imagen'}";
-                
 
-                // Al no poder enviar objetos entre ficheros, hay que recurrir a codificar y decodificar JSON
+                // Se codifica el array como JSON para hacerlo mas reutilizable
                 $myJSON = json_encode($producto);
             }
             // Se cierra la conexión

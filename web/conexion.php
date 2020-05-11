@@ -5,6 +5,7 @@
         private static $conexion = NULL;
         private function __construct(){}
 
+        // Esto está aquí en el modo local para probar. En el servidor tiene un usuario específico para la BBDD
         private static $usuario = "root";
         private static $contrasena = "";  
         private static $servidor = "localhost";
