@@ -90,5 +90,25 @@ class ProductModel{
             die("Error: " . $e->getMessage());
         }
     }
+
+    // Modifica un producto en la BBDD
+    public function modificaProducto($producto){
+        $db=Db::conectar();
+        $actualizar=$db->prepare('UPDATE productos SET nombre=:nombre, precio=:precio, oferta=:oferta, imagen=:imagen  WHERE id=:id');
+        /*
+        $actualizar->bindValue('id',$libro->getId());
+        $actualizar->bindValue('nombre',$libro->getNombre());
+        $actualizar->bindValue('autor',$libro->getAutor());
+        */
+        $actualizar->bindValue('id', $producto->getId());
+        $actualizar->bindValue('nombre', $producto->getNombre());
+        $actualizar->bindValue('precio', $producto->getPrecio());
+        $actualizar->bindValue('oferta', $producto->getOferta());
+        $actualizar->bindValue('imagen', $producto->getImagen());
+
+        $actualizar->execute();
+        
+        $db=Db::cerrarConexion();
+    }
 }
 ?>

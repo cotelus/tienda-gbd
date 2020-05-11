@@ -1,11 +1,35 @@
 <?php
+require_once('product_model.php');
+require_once('product.php');
+
+
 // Hay que comprobar que es un usuario logeado el que intenta acceder al sistema y que tiene los permisos necesarios
 if(isset($_GET["id"])){
     $id = $_GET["id"];
+}else{
+    // Si no hay un id seleccionado para modificar, voy a devolver al usuario al index
+    echo "<script>window.location.href='index.php';</script>";
 }
 
-require_once('product_model.php');
+// Ahora comprueba si se está llegando a esta página tras una actualización de un producto
+if(isset($_POST['actualizar'])){
+    // Compruebo que las variables que tienen que llegar por POST existen
+    if(isset($_POST["id"], $_POST["nombre"], $_POST["precio"], $_POST["oferta"], $_POST["imagen"] ) ){
+        $id = $_POST["id"];
+        $nombre = $_POST["nombre"];
+        $precio = $_POST["precio"];
+        $oferta = $_POST["oferta"];
+        $imagen = $_POST["imagen"];
 
+        // Comprobaciones sobre el producto{}
+
+        $productoModificado = new Product($nombre, $id, $precio, $oferta, $imagen);
+        ProductModel::modificaProducto($productoModificado);
+    }
+
+}
+
+// Recupero el producto que sea y lo almaceno para mostrarlo mas tarde
 $productoJSON = ProductModel::getSimpleProduct($id);
 if($productoJSON != null){
     // Se decodifica el JSON obtenido
@@ -102,6 +126,12 @@ if(!isset($_SESSION["admin"]) || $_SESSION["admin"]!== 1){
 <div class="jumbotron text-center">
     <h1>Latiende Sita</h1>
     <h3>Página de administración de productos</h3>
+    <?php 
+        // Es solo para mostrar que se ha modificado un producto correctamente 
+        if(isset($productoModificado)){
+            echo "<h3 class='text-success'>Artículo modificado correctamente</h3>";
+        }
+    ?>
 </div>
 
 
@@ -109,7 +139,7 @@ if(!isset($_SESSION["admin"]) || $_SESSION["admin"]!== 1){
 <div class="container-fluid">
     <div class="mx-auto row text-left" >
     <div class="col-12">
-        <form action='administrar_libro.php' method='post'>
+        <form action='adminProduct.php?id=<?php echo $id; ?>' method='post'>
             <div class='form-group'>
                 <input type='hidden' name='actualizar' value='actualizar'>
                 <input type='hidden' name='id' value='<?php echo $producto->getId()?>'>
@@ -133,6 +163,7 @@ if(!isset($_SESSION["admin"]) || $_SESSION["admin"]!== 1){
             <button type='submit' class='btn btn-primary btn-lg btn-block' value='Guardar'>Guardar</button>
         </form>
     </div>
+    <a class="ml-2 mt-4 text-primary" href="index.php">Volver al inicio</a>
 </div>
 
 
