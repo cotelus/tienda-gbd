@@ -7,7 +7,10 @@ class UserModel{
 
     public function __construct(){}
 
-    // Comprueba si el usuario y contraseña es correcto en el servidor y devuelve true o false
+    // Comprueba si el usuario y contraseña es correcto en el servidor
+        //  Devuelve: 0 - Usuario no existe en el sistema
+        //  Devuelve: 1 - Usuario existe pero no tiene permisos de administración
+        //  Devuelve: 2 - Usuario existe y tiene permisos de administración
     public function login($username, $password){
         try{
             $db = Db::conectar();
@@ -20,10 +23,19 @@ class UserModel{
 
             $db = Db::cerrarConexion();
     
-            if($num_registro != 0){
-                return true;
-            }else{
-                return false;
+            // El usuario existe y la contraseña coincide
+            //if($num_registro != 0){
+            if($row = $result->fetch(PDO::FETCH_ASSOC)){
+                if($row["permisos"] == 0){
+                    return 1;
+                }else{
+                    return 2;
+                }
+            }
+            //}
+            // El usuario no existe o la contraseña no coincide
+            else{
+                return 0;
             }
     
         }catch(Exception $e){

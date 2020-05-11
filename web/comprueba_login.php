@@ -18,10 +18,18 @@
         $resultado = $model->login($username, $password);
 
         // En función de lo que devuelva login, se actua
-        if($resultado){
+        if($resultado != 0){
             session_start();
-            $_SESSION["username"] = $username;
-            header("location:user_panel.php");
+            if($resultado == 1){
+                $_SESSION["username"] = $username;
+                $_SESSION["admin"] = 0;
+                header("location:user_panel.php?admin=0");
+            }
+            if($resultado == 2){
+                $_SESSION["username"] = $username;
+                $_SESSION["admin"] = 1;
+                header("location:user_panel.php?admin=1");
+            }
         }else{
             header("location:index.php?wrongLogin=1");
         }
