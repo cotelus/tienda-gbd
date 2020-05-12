@@ -24,7 +24,6 @@ class UserModel{
             $db = Db::cerrarConexion();
     
             // El usuario existe y la contraseña coincide
-            //if($num_registro != 0){
             if($row = $result->fetch(PDO::FETCH_ASSOC)){
                 if($row["permisos"] == 0){
                     return 1;
@@ -32,7 +31,6 @@ class UserModel{
                     return 2;
                 }
             }
-            //}
             // El usuario no existe o la contraseña no coincide
             else{
                 return 0;
@@ -66,6 +64,60 @@ class UserModel{
                 $sql->execute();
 
                 $resultado = true;
+            }
+
+            $db = Db::cerrarConexion();
+
+            return $resultado;
+
+        }catch(Exception $e){
+            die("Error: " . $e->getMessage());
+        }
+    }
+
+    // Añade la factura relacionando un id de factura, el id de usuario y los productos del carro en formato JSON
+    public function crearFactura($usuario, $carro){
+        $resultado = false;
+
+        // Se pregunta por el id y se almacena
+        $id = UserModel::getUserId($usuario);
+
+        try{
+            $db = Db::conectar();
+
+            // Se prepara la consulta
+            $sql = $db->prepare("INSERT INTO `factura` (`id_factura`, `usuario`, `fecha`, `carro`) VALUES (NULL, :id, NOW(), :carro)");
+            $sql->bindValue(":id", $id);
+            $sql->bindValue(":carro", $carro);
+
+            $sql->execute();
+
+            $resultado = true;
+
+        }catch(Exception $e){
+            die("Error: " . $e->getMessage());
+        }
+    }
+
+
+    public function getUserId($username){
+        $resultado = false;
+
+        try{
+            $db = Db::conectar();
+
+            // Lo primero va a ser comprobar si existe este usuario.
+            $sql = $db->prepare("SELECT * FROM usuarios WHERE nombre= :username");
+            $sql->bindValue(":username", $username);
+            $sql->execute();
+
+            $num_registro = $sql->rowCount();
+
+            // Si no devuelve columnas, el nombre de usuario está libre, es decir, se puede crear uno nuevo 
+            if($num_registro != 0){
+                if($row = $sql->fetch(PDO::FETCH_ASSOC)){
+                    $resultado = $row["id"];
+                }
             }
 
             $db = Db::cerrarConexion();

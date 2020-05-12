@@ -9,6 +9,18 @@
         // por tanto lo primero que voy a hacer es actualizar las cantidades por si no lo hubiera hecho correctamente el usuario
     // La posición iésima de cada array corresponde con un mismo id, cantidad y posición en el array $_SESSION["cart"]
     session_start();
+
+
+    // Si el carrito está vacío se vuelve al index
+    if(count($_SESSION["cart"]) < 1){
+        echo "<script>window.location.href='index.php';</script>";
+    }
+    // Si no hay un usuario logueado, se le pide que inicie sesión
+    if(!isset($_SESSION["username"])){
+        echo "<script>window.location.href='index.php?wrongLogin=2';</script>";
+    }
+
+
     print_r($_POST["index-id"]);
     print_r($_POST["index-cantidad"]);
 
@@ -18,6 +30,7 @@
     echo "<br>";
    
     if(isset($_POST["index-id"]) && isset($_POST["index-cantidad"])){
+        // Totalmente temporal
         foreach($_SESSION["cart"] as $key => $producto){
             echo $_POST["index-id"][$key];
             echo "-";
@@ -26,8 +39,7 @@
             $_SESSION["cart"][$key]["cantidad"] = $_POST["index-cantidad"][$key];
         }
 
-
-        // Vamos a hacerlo aquí mismitico
+        // Hacerlo solo en la confirmación, ya que puede ser una tarea pesada para el servidor
         // Solo se quiere almacenar la factura en la BBDD. Se hace a través del usuario
         
         // Comprobar que hay un usuario logueado
@@ -46,17 +58,28 @@
                     $_SESSION["cart"][$key] = array('id' => $producto->getId(), 'nombre' => $producto->getNombre(), 'cantidad' => $producto_carrito["cantidad"], 'imagen' => $producto->getImagen(), 
                         'precioFinal' => $producto->getPrecioFinal(), 'precio' => $producto->getPrecio(), 'oferta' => $producto->getOferta());
                 }else{
-                    // Si devuelve null, es que no ha encontrado el id, por tanto se vuelve al index
-                    //echo "<script>window.location.href='index.php';</script>";
-                    echo "algo ha ido mal";
+                    // Si devuelve null, es que no ha encontrado el id, por tanto se vuelve al index sin actualizar
+                    echo "<script>window.location.href='index.php';</script>";
                 }
-                
             }
+            
+            echo "<br>";
+            print_r ($_SESSION["cart"]);
+            echo "<br>";
+            $myJSON = json_encode($_SESSION["cart"]);
+            echo "<br>";
+            echo $myJSON;
+            $resultado = UserModel::crearFactura($_SESSION["username"], $myJSON);
+            echo "<br>";
+            echo $resultado;
+
+            echo "<br>";
+            echo "<br>";
+
         }else{
             echo "adios";
         }
 
-        // Si el usuario está logueado, actualizar el carrito (actualizar precios y ofertas por lo que pueda pasar)(altamente opcional)
 
         // Mandas a user_model los datos para almacenar en la BBDD con el carrito en json_encode
 

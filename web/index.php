@@ -77,18 +77,30 @@
     }
 ?>
 <!-- 
-    comprueba si se viene de hacer un login mal
+    comprueba si se viene de hacer un login mal o se necesita hacer login
 -->
 <?php
-    if(isset($_GET["wrongLogin"]) && $_GET["wrongLogin"] == 1){
+    if(isset($_GET["wrongLogin"])){
+        if($_GET["wrongLogin"] == 1){
     ?>
-        <script type="text/javascript">
-            $(window).on('load',function(){
-                $('#modalLoginForm').modal('show');
-                $('#loginError').append( "Credenciales incorrectos" );
-            });
-        </script>
+            <script type="text/javascript">
+                $(window).on('load',function(){
+                    $('#modalLoginForm').modal('show');
+                    $('#loginError').append( "Credenciales incorrectos" );
+                });
+            </script>
     <?php
+        }
+        elseif($_GET["wrongLogin"] == 2){
+    ?>
+            <script type="text/javascript">
+                $(window).on('load',function(){
+                    $('#modalLoginForm').modal('show');
+                    $('#loginError').append( "Inicie sesión para continuar" );
+                });
+            </script>
+    <?php
+        }
     }
 ?>
 <?php
