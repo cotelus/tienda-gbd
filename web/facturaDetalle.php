@@ -5,7 +5,7 @@
     if(isset($_GET["id"])){
         $id = $_GET["id"];
     }else{
-        header("Location:index.php?wrongLogin=1");
+        header("Location:user_panel.php");
     }
 
 
@@ -86,7 +86,46 @@
 <!-- Jumbotron que muestra donde está el amdinistrador -->
 <div class="jumbotron text-center">
     <h1>Latiende Sita</h1>
-    <h3>Vista en detalle de facturas</h3>
+    <h3>Vista en detalle de factura #<?php echo $factura["id_factura"]; ?></h3>
+</div>
+
+<div class="container-fluid">
+    <div class="row col-12 text-center">
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#Producto</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Oferta</th>
+                    <th scope="col">Precio final</th>
+                    <th scope="col">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php 
+                    // Se decodifica la parte del carro de la factura (estaba en JSON)
+                    $carro = json_decode($factura["carro"], true);
+                    foreach($carro as $key => $producto){ ?>
+                    <tr>
+                        <td><?php echo $producto['id']?></td>
+                        <td><?php echo $producto['nombre']?></td>
+                        <td><?php echo $producto['cantidad']?></td>
+                        <td><?php echo $producto['precio']?>€</td>
+                        <td>-<?php echo $producto['oferta']?>%</td>
+                        <td><?php echo $producto['precioFinal']?>€</td>
+                        <td class="text-danger"><strong><?php echo ($producto['precioFinal'] * $producto['cantidad']); ?>€</strong></td>
+                        
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+        <h4 class="col-12 mx-auto">TOTAL: <?php echo $factura["importe_total"] ?>€</h4>
+        <hr>
+        <a type="button" class="col-12 ml-2 btn btn-danger" href="print_factura.php">Imprimir factura en PDF</a>
+    </div>
 </div>
 
 
@@ -95,6 +134,7 @@
 <div class="container-fluid">
     <div class="row">
         <a class="col-12 ml-2 mt-4 text-primary" href="index.php">Volver al inicio</a>
+        <a class="col-12 ml-2 mt-4 text-primary" href="user_panel.php">Volver al Panel de usuario</a>
     </div>
 </div>
 
