@@ -20,6 +20,23 @@
             echo "<br>";
             $_SESSION["cart"][$key]["cantidad"] = $_POST["index-cantidad"][$key];
         }
+
+
+        // Vamos a hacerlo aquí mismitico
+        // Solo se quiere almacenar la factura en la BBDD. Se hace a través del usuario
+        
+        // Comprobar que hay un usuario logueado
+        if(isset($_SESSION["username"])){
+            echo "hola";
+        }else{
+            echo "adios";
+        }
+
+        // Si el usuario está logueado, actualizar el carrito (actualizar precios y ofertas por lo que pueda pasar)(altamente opcional)
+
+        // Mandas a user_model los datos para almacenar en la BBDD con el carrito en json_encode
+
+        // Mostrar algo por pantalla
     }
 
     // Si se pulsó el botón actualizar, se devuelve al index
@@ -29,5 +46,6 @@
         //header("location:index.php?cart=24");
         echo "<script>window.location.href='index.php?cart=24';</script>";
     }
-    //header("location:index.php?cart=23");
+    
+
 ?>
