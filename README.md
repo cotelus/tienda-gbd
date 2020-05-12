@@ -55,3 +55,14 @@ Con la visión global del problema y los puntos problemáticos y cómo afrontarl
 En este momento, se han finalizado todos los puntos obligatorios. A excepción de validación HTTPS y pagar con PayPal
 
 
+## 5.- Explicación breve de la página
+
+1. En el index se muestra una barra de navegación y los productos en catálogo. Pueden añadirse al carrito pero hasta que no se inicia sesión no se puede completar la compra.
+2. El usuario administrador tiene una opción especial que es un engranaje visible en cada producto que al pinchar sobre el lleva a la página de administración de ese producto.
+3. El usuario administrador además, tiene una sección accesible desde la barra de navegación desde la que puede acceder a las opciones de administración, que sirven para añadir productos nuevos o listar los ya existentes para modificarlos o eliminarlos
+4. El usuario admin y el no admin tienen la posibilidad de hacer compras
+5. Cada compra se almacenará en la BBDD cuando se complete.
+6. En la zona de usuarios (user_panel.php) se muestran todas las compras realizadas por el usuario. Si se desea, puede verse con mas detalle cada compra e incluso imprimir un pdf a modo de factura.
+7. Todos los sitios de la página que no deben de ser accesibles están restringidos. Hay redirecciones para que si se llega de una forma "fraudulenta" se devuelva al usuario a una página concreta
+
+
