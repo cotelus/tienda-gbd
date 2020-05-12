@@ -300,5 +300,68 @@ if(isset($_POST['eliminar'])){
 </div>
 
 
+<!-- Modales -->
+<div class="container-fluid">
+    <!-- modal del carrito -->
+    <div class="modal fade" id="carritoForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center bg-primary text-light">
+                    <h4 class="modal-title w-100 font-weight-bold">Carrito <i class="fas fa-shopping-cart"></i></h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-3">
+                    <form action="check_buy.php" method="POST">
+                        <h4 class="text-success text-center" id="cartAdd"></h4>
+                        <?php 
+                            $total = 0;
+                            foreach($_SESSION["cart"] as $key => $producto){
+                
+                                // Va a almacenar el total de los productos y el precio total de este producto
+                                $totalProducto = ($producto["precioFinal"] * $producto["cantidad"]);
+                                $total += $totalProducto;
+                        
+                        ?>
+                            <div class="mb-5 row col-12">
+                                <!-- Imagen -->
+                                <input type="hidden" name="index-id[<?php echo $key?>]" value="<?php echo $producto["id"]?>">
+                                <div class="col-4 col-lg-2">
+                                    <img width="125" style="display: inline;" src=<?php echo $producto["imagen"] ?> class="img-fluid producto-imagen">
+                                </div>
+                                <!-- Nombre, cantidad y precio -->
+                                <div class="row col-8 col-lg-10">
+                                    <h4 class="col-12"><?php echo $producto["nombre"] ?></h4>
+                                    <!-- Cantidad 
+                                    <div class="col-lg-6 col-12">
+                                        <h6>Cantidad: <input type="number" id="producto-carro-<?php echo $producto["id"] ?>" value="<?php echo $producto["cantidad"] ?>" min="1" max="15" step="1"/></h6>
+                                    </div> -->
+                                    <div class="text-left row col-lg-6 col-12">
+                                        <h6 class="col-12">Cantidad: <input type="number" id="producto-carro<?php echo $producto["id"] ?>" name="index-cantidad[<?php echo $key?>]" value="<?php echo $producto["cantidad"] ?>" min="1" max="15" step="1"/></h6>
+                                        <a href="add_product.php?remove=<?php echo $producto["id"] ?>" class="col-12 text-danger">Eliminar</a>
+                                    </div>
+                                    <!-- Precio -->
+                                    <div class="text-right row col-lg-6 col-12">
+                                        <h6 class="col-6">Precio: </h6><h6 class="col-6"> <?php echo $producto["precioFinal"] ?> €</h6>
+                                        <h6 class="col-6">Total (<?php echo $producto["cantidad"] ?>): </h6><h6 class="col-6"> <?php echo $totalProducto ?> €</h6>
+                                    </div>
+                                </div> 
+                            </div>
+                        <?php
+                            } 
+                        ?>
+                        <div class="mb-5 row col-12">
+                            <h5 class="col-6 text-right">Total: </h5><h5 class="col-6" id="total-carrito"> <?php echo $total?> €</h5>
+                        </div>
+                        <button type="submit" name="pagar" class="btn btn-primary float-right">Proceder al pago</button>
+                        <button type="submit" name="actualizar" class="btn btn-warning float-right mr-3">Actualizar carrito</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
