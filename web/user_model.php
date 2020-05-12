@@ -42,7 +42,7 @@ class UserModel{
     }
 
     // Comprueba si el usuario puede registrarse con esos datos y actua en consecuencia
-    public function register($username, $password){
+    public function register($username, $password, $email){
         $resultado = false;
 
         try{
@@ -57,9 +57,10 @@ class UserModel{
 
             // Si no devuelve columnas, el nombre de usuario está libre, es decir, se puede crear uno nuevo 
             if($num_registro==0){
-                $sql = $db->prepare("INSERT INTO `usuarios`( `nombre`, `contrasena`) VALUES (:username, :password)");
+                $sql = $db->prepare("INSERT INTO `usuarios`( `nombre`, `contrasena`, `email`, `permisos`) VALUES (:username, :password, :email, 0)");
                 $sql->bindValue(":username", $username);
                 $sql->bindValue(":password", $password);
+                $sql->bindValue(":email", $email);
 
                 $sql->execute();
 

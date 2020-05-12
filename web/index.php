@@ -365,12 +365,16 @@
                                 <input type="text" class="form-control" id="exampleInputUsername" name="username" aria-describedby="emailHelp" placeholder="Introduzca su usuario" required>
                             </div>
                             <div class="form-group">
-                            <label for="exampleInputPassword1">Contraseña</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Introduzca su contraseña" required>
+                                <label for="exampleInputEmail1">e-mail</label>
+                                <input type="email" class="form-control" id="exampleInputUsername" name="correo" aria-describedby="emailHelp" placeholder="Introduzca su correo" required>
                             </div>
                             <div class="form-group">
-                            <label for="exampleInputPassword1">Confirmar contraseña</label>
-                            <input type="password" class="form-control" id="exampleInputPassword2" name="passwordConfirmada" placeholder="Repita su contraseña" required>
+                                <label for="exampleInputPassword1">Contraseña</label>
+                                <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Introduzca su contraseña" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Confirmar contraseña</label>
+                                <input type="password" class="form-control" id="exampleInputPassword2" name="passwordConfirmada" placeholder="Repita su contraseña" required>
                             </div>
                             <h4 class="text-danger" id="signupError"></h4>
                             <button type="submit" class="btn btn-primary float-right">Enviar</button>
