@@ -52,6 +52,6 @@ Con la visión global del problema y los puntos problemáticos y cómo afrontarl
 
 
 ## 4.- ¿Qué queda por terminar?
-En este momento, queda por terminar:
+En este momento, se han finalizado todos los puntos obligatorios. A excepción de validación HTTPS y pagar con PayPal
 
-1. Pasar facturas a PDF
+
