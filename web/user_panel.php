@@ -154,10 +154,6 @@
                                 <!-- Nombre, cantidad y precio -->
                                 <div class="row col-8 col-lg-10">
                                     <h4 class="col-12"><?php echo $producto["nombre"] ?></h4>
-                                    <!-- Cantidad 
-                                    <div class="col-lg-6 col-12">
-                                        <h6>Cantidad: <input type="number" id="producto-carro-<?php echo $producto["id"] ?>" value="<?php echo $producto["cantidad"] ?>" min="1" max="15" step="1"/></h6>
-                                    </div> -->
                                     <div class="text-left row col-lg-6 col-12">
                                         <h6 class="col-12">Cantidad: <input type="number" id="producto-carro<?php echo $producto["id"] ?>" name="index-cantidad[<?php echo $key?>]" value="<?php echo $producto["cantidad"] ?>" min="1" max="15" step="1"/></h6>
                                         <a href="add_product.php?remove=<?php echo $producto["id"] ?>" class="col-12 text-danger">Eliminar</a>

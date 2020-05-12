@@ -98,6 +98,9 @@ class UserModel{
         }catch(Exception $e){
             die("Error: " . $e->getMessage());
         }
+
+        $db = Db::cerrarConexion();
+        return $resultado;
     }
 
     public function getUserId($username){

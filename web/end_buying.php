@@ -1,25 +1,30 @@
 <?php
     require_once("user_model.php");
 
-    // Se comprueba que se está recibiendo algo con GET
-    if(isset($_GET["id"])){
-        $id = $_GET["id"];
-    }else{
-        header("Location:user_panel.php");
-    }
-
 
     session_start();
-    // Comprobar que el usuario es el que tiene los permisos para ver la factura
-    $factura = UserModel::getFacturaConcreta($_SESSION["username"], $id);
-
-    // Si la factura pertenece al usuario se devuelve un objeto. En caso contrario devuelve null, así que si ha devuelto null, redirigimos al usuario
-    if($factura == null){
+    // Si el usuario no debiera estar aquí, se le redirige
+    if(!isset($_POST["confirmar"], $_SESSION["username"])){
         echo "<script>window.location.href='user_panel.php';</script>";
     }
 
-?>
+    // Se codifica $_SESSION["cart"] en formato JSON
+    $myJSON = json_encode($_SESSION["cart"]);
+    // Se comprueba otra vez que el carrito no esté vacío, por lo que pueda pasar
+    if(count($_SESSION["cart"]) > 0){
+        // Se envia a user_model para que introduzca los datos en la BBDD
+        $resultado = UserModel::crearFactura($_SESSION["username"], $myJSON, $_SESSION["importe_total"]);
+    }else{
+        echo "<script>window.location.href='user_panel.php';</script>";
+    }
 
+    // Se elimina el carrito
+    unset($_SESSION["cart"]);
+    // Se crea de nuevo el carrito
+    $_SESSION["cart"] = array();
+
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -59,7 +64,7 @@
                 <!-- icono del carrito -->
                 <a type='button' href='' class='mr-3 btn btn-primary my-2 my-sm-0' data-toggle='modal' data-target='#carritoForm'><i class="fas fa-shopping-cart"></i> Carrito
                     <?php 
-                        if(count($_SESSION["cart"]) != 0){
+                        if(isset($_SESSION["cart"]) && count($_SESSION["cart"]) != 0){
                             echo "(";
                             echo count($_SESSION["cart"]);
                             echo ")"; 
@@ -83,60 +88,23 @@
     </div>
 </nav>
 
-<!-- Jumbotron que muestra donde está el amdinistrador -->
+<!-- Jumbotron que muestra donde está el usuario -->
 <div class="jumbotron text-center">
     <h1>Latiende Sita</h1>
-    <h3>Vista en detalle de factura #<?php echo $factura["id_factura"]; ?></h3>
+    <h2> Bienvenido <?php print $_SESSION['username']; ?></h2>
+    <h3 class="text-success">Pedido realizado con éxito</h3>
 </div>
-
-<div class="container-fluid">
-    <div class="row col-12 text-center">
-
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">#Producto</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Cantidad</th>
-                    <th scope="col">Precio</th>
-                    <th scope="col">Oferta</th>
-                    <th scope="col">Precio final</th>
-                    <th scope="col">Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php 
-                    // Se decodifica la parte del carro de la factura (estaba en JSON)
-                    $carro = json_decode($factura["carro"], true);
-                    foreach($carro as $key => $producto){ ?>
-                    <tr>
-                        <td><?php echo $producto['id']?></td>
-                        <td><?php echo $producto['nombre']?></td>
-                        <td><?php echo $producto['cantidad']?></td>
-                        <td><?php echo $producto['precio']?>€</td>
-                        <td>-<?php echo $producto['oferta']?>%</td>
-                        <td><?php echo $producto['precioFinal']?>€</td>
-                        <td class="text-danger"><strong><?php echo ($producto['precioFinal'] * $producto['cantidad']); ?>€</strong></td>
-                        
-                    </tr>
-                <?php } ?>
-            </tbody>
-        </table>
-        <h4 class="col-12 mx-auto">TOTAL: <?php echo $factura["importe_total"] ?>€</h4>
-        <hr>
-        <a type="button" class="col-12 ml-2 btn btn-danger" href="print_factura.php">Imprimir factura en PDF</a>
-    </div>
-</div>
-
-
-
-<!-- Opciones de navegación extras ( en la barra de navegación ya están, pero por dar mas apoyo visual) -->
 <div class="container-fluid">
     <div class="row">
-        <a class="col-12 ml-2 mt-4 text-primary" href="index.php">Volver al inicio</a>
-        <a class="col-12 ml-2 mt-4 text-primary" href="user_panel.php">Volver al Panel de usuario</a>
+        <div class="col-12">
+            <h5>Muchas gracias por su compra</h5>
+            <p>Para mas información y/o descargar el recibo de compra, diríjase a la sección de usuarios</p>
+            <a class="col-12 ml-2 mt-4 text-primary" href="user_panel.php">Volver al Panel de usuario</a>
+        </div>
     </div>
 </div>
+
+
 
 
 <!-- modal del carrito -->
@@ -170,6 +138,10 @@
                                 <!-- Nombre, cantidad y precio -->
                                 <div class="row col-8 col-lg-10">
                                     <h4 class="col-12"><?php echo $producto["nombre"] ?></h4>
+                                    <!-- Cantidad 
+                                    <div class="col-lg-6 col-12">
+                                        <h6>Cantidad: <input type="number" id="producto-carro-<?php echo $producto["id"] ?>" value="<?php echo $producto["cantidad"] ?>" min="1" max="15" step="1"/></h6>
+                                    </div> -->
                                     <div class="text-left row col-lg-6 col-12">
                                         <h6 class="col-12">Cantidad: <input type="number" id="producto-carro<?php echo $producto["id"] ?>" name="index-cantidad[<?php echo $key?>]" value="<?php echo $producto["cantidad"] ?>" min="1" max="15" step="1"/></h6>
                                         <a href="add_product.php?remove=<?php echo $producto["id"] ?>" class="col-12 text-danger">Eliminar</a>
