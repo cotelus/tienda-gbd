@@ -44,6 +44,7 @@
         
         // Comprobar que hay un usuario logueado
         if(isset($_SESSION["username"])){
+            $importe_total = 0;
             // Si el usuario está logueado, actualizar el carrito (actualizar precios y ofertas por lo que pueda pasar)
             foreach($_SESSION["cart"] as $key => $producto_carrito){
                 // Pedir los datos del producto 
@@ -57,6 +58,10 @@
                     // Hay que modificar la sesion para sobreescribir los datos y actualizarlos
                     $_SESSION["cart"][$key] = array('id' => $producto->getId(), 'nombre' => $producto->getNombre(), 'cantidad' => $producto_carrito["cantidad"], 'imagen' => $producto->getImagen(), 
                         'precioFinal' => $producto->getPrecioFinal(), 'precio' => $producto->getPrecio(), 'oferta' => $producto->getOferta());
+
+                    // Se suma al total
+                    $importe_total +=  $producto_carrito["cantidad"] * $producto->getPrecioFinal();
+                    $_SESSION["importe_total"] = $importe_total;
                 }else{
                     // Si devuelve null, es que no ha encontrado el id, por tanto se vuelve al index sin actualizar
                     echo "<script>window.location.href='index.php';</script>";
@@ -69,14 +74,14 @@
             $myJSON = json_encode($_SESSION["cart"]);
             echo "<br>";
             echo $myJSON;
-            //$resultado = UserModel::crearFactura($_SESSION["username"], $myJSON);
+            //$resultado = UserModel::crearFactura($_SESSION["username"], $myJSON, $_SESSION["importe_total"]);
             echo "<br>";
             //echo $resultado;
 
             echo "<br>";
             echo "<br>";
             // Ahora hay que recuperar una factura cualquiera y mostrarla
-            $resultado = UserModel::getFacturaConcreta($_SESSION["username"], 4);
+            $resultado = UserModel::getFacturaConcreta($_SESSION["username"], 6);
             print_r($resultado);
             // Se decodifica el carro de la factura en formato JSON
             echo "<br>";

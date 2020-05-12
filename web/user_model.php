@@ -76,7 +76,7 @@ class UserModel{
     }
 
     // Añade la factura relacionando un id de factura, el id de usuario y los productos del carro en formato JSON
-    public function crearFactura($usuario, $carro){
+    public function crearFactura($usuario, $carro, $importe_total){
         $resultado = false;
 
         // Se pregunta por el id y se almacena
@@ -86,9 +86,10 @@ class UserModel{
             $db = Db::conectar();
 
             // Se prepara la consulta
-            $sql = $db->prepare("INSERT INTO `factura` (`id_factura`, `usuario`, `fecha`, `carro`) VALUES (NULL, :id, NOW(), :carro)");
+            $sql = $db->prepare("INSERT INTO `factura` (`id_factura`, `usuario`, `fecha`, `carro`, `importe_total`) VALUES (NULL, :id, NOW(), :carro, :importe_total)");
             $sql->bindValue(":id", $id);
             $sql->bindValue(":carro", $carro);
+            $sql->bindValue(":importe_total", $importe_total);
 
             $sql->execute();
 
@@ -151,6 +152,7 @@ class UserModel{
                     $factura["carro"] = $row["carro"];
                     $factura["id_factura"] = $row["id_factura"];
                     $factura["fecha"] = $row["fecha"];
+                    $factura["importe_total"] = $row["importe_total"];
 
                     return $factura;
 
@@ -160,6 +162,44 @@ class UserModel{
             else{
                 return NULL;
             }
+    
+        }catch(Exception $e){
+            die("Error: " . $e->getMessage());
+        }
+    }
+
+    // A partir de un usuario y un id de factura, se devuelve si la factura pertenece a ese usuario
+    public function getFacturas($username){
+        
+        $id = UserModel::getUserId($username);
+
+        try{
+            $db = Db::conectar();
+            $result = $db->prepare("SELECT * FROM factura WHERE usuario= :usuario");
+            $result->bindValue(":usuario", $id);
+            $result->execute();
+    
+            $num_registro = $result->rowCount();
+            
+            $facturas = array();
+            $index = 0;
+            // Para cada fila devuelta por la BBDD se almacena en $facturas
+            while($row = $result->fetch(PDO::FETCH_ASSOC)){
+                if(isset($row["carro"])){
+                    $facturas[$index]["carro"] = json_decode($row["carro"], true);
+                    $facturas[$index]["id_factura"] = $row["id_factura"];
+                    $facturas[$index]["fecha"] = $row["fecha"];
+                    $facturas[$index]["importe_total"] = $row["importe_total"];
+
+                    $index++;
+                }
+            }
+
+            $db = Db::cerrarConexion();
+
+            return $facturas;
+
+
     
         }catch(Exception $e){
             die("Error: " . $e->getMessage());
