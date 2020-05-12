@@ -32,6 +32,11 @@ Por otra parte, al no hacer uso de tecnologías de comunicación asíncrona, la 
 15. Añadir vista de la administración de productos.
 16. Añadir opción de insertar productos desde la web al admin.
 17. Añadir opción de eliminar productos desde la web al admin.
+18. Añadir vista en el perfil de usuario del historial de compras.
+19. Añadir conexión con la BBDD para mostrar las facturas.
+20. Filtrar facturas para aumentar seguridad.
+21. Vista en detalle da cada factura.
+22. Añadir entrada en la BBDD de una factura al realizar la compra.
 
 
 ## 3.- ¿Cómo se ha hecho?
@@ -48,6 +53,5 @@ En este momento, queda por terminar:
 1. Registro de nuevos usuarios. (He modificado los elementos necesarios para darse de alta en el sitio, pero no he actualizado esos elementos en la creación de la nueva fila en la BBDD y da error. Es algo muy sencillo de solucionar, pero no es prioritario).
 5. Añadir sección de confirmar pago que realice las comprobaciones pertinentes sobre productos, precio y stock y actualice la BBDD
 6. Cambiar almacenamiento del carrito de sesiones a cookies.
-7. Añadir pasarela de pago. 
-8. Añadir facturas al comprar
+7. Añadir pasarela de pago.
 9. Pasar facturas a PDF.
