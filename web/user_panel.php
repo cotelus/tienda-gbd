@@ -50,7 +50,7 @@
                                 <th scope="row">#<?php echo $factura['id_factura']?></th>
                                 <td><?php echo $factura['fecha']?></td>
                                 <td><?php echo $factura['importe_total'] ?> €</td>
-                                <td><a href="facturaDetalle?id=<?php echo $factura['id_factura'] ?>"><button type="button" name="actualizar" class="btn btn-success col-12">Ver en detalle</button></a></td>
+                                <td><a href="facturaDetalle.php?id=<?php echo $factura['id_factura'] ?>"><button type="button" name="actualizar" class="btn btn-success col-12">Ver en detalle</button></a></td>
                             </tr>
                         <?php } ?>
                     </tbody>
