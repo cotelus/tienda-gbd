@@ -19,29 +19,19 @@
     if(!isset($_SESSION["username"])){
         echo "<script>window.location.href='index.php?wrongLogin=2';</script>";
     }
-
-
-    print_r($_POST["index-id"]);
-    print_r($_POST["index-cantidad"]);
-
-    array_values($_SESSION["cart"]);
-    echo "<br>";
-    print_r($_SESSION["cart"]);
-    echo "<br>";
-   
+    
     if(isset($_POST["index-id"]) && isset($_POST["index-cantidad"])){
-        // Totalmente temporal
+        // Se actualiza el carrito
         foreach($_SESSION["cart"] as $key => $producto){
-            echo $_POST["index-id"][$key];
-            echo "-";
-            echo $_POST["index-cantidad"][$key];
-            echo "<br>";
             $_SESSION["cart"][$key]["cantidad"] = $_POST["index-cantidad"][$key];
         }
 
-        // Hacerlo solo en la confirmación, ya que puede ser una tarea pesada para el servidor
-        // Solo se quiere almacenar la factura en la BBDD. Se hace a través del usuario
-        
+        // Si se pulsó el botón actualizar, se devuelve al index
+        if(isset($_POST["actualizar"])){
+            echo "<script>window.location.href='index.php?cart=24';</script>";
+        }
+
+        // A partir de aquí, se supone que es para seguir con el proceso de finalizar la compra        
         // Comprobar que hay un usuario logueado
         if(isset($_SESSION["username"])){
             $importe_total = 0;
@@ -68,12 +58,7 @@
                 }
             }
             
-            echo "<br>";
-            print_r ($_SESSION["cart"]);
-            echo "<br>";
-            $myJSON = json_encode($_SESSION["cart"]);
-            echo "<br>";
-            echo $myJSON;
+           
             //$resultado = UserModel::crearFactura($_SESSION["username"], $myJSON, $_SESSION["importe_total"]);
             echo "<br>";
             //echo $resultado;
@@ -82,12 +67,10 @@
             echo "<br>";
             // Ahora hay que recuperar una factura cualquiera y mostrarla
             $resultado = UserModel::getFacturaConcreta($_SESSION["username"], 6);
-            print_r($resultado);
             // Se decodifica el carro de la factura en formato JSON
             echo "<br>";
             echo "<br>";
             $carroJSON = json_decode($resultado["carro"], true);
-            print_r($carroJSON);
             // Ahora que se tiene el carro en JSON, hay que distinguir en productos individuales
             foreach($carroJSON as $key => $producto){
                 echo "<br>";
@@ -111,15 +94,9 @@
         // Mandas a user_model los datos para almacenar en la BBDD con el carrito en json_encode
 
         // Mostrar algo por pantalla
+    }else{
+        // Si no cumple ninguna condición para modificar el carro o confirmar la compra, devolvemos al usuario al index
+        echo "<script>window.location.href='index.php';</script>";
     }
-
-    // Si se pulsó el botón actualizar, se devuelve al index
-    if(isset($_POST["actualizar"])){
-        echo "voy a actualizar <br>";
-        // En el servidor esto no funciona por algún motivo
-        //header("location:index.php?cart=24");
-        echo "<script>window.location.href='index.php?cart=24';</script>";
-    }
-    
 
 ?>
