@@ -39,6 +39,8 @@ Por otra parte, al no hacer uso de tecnologías de comunicación asíncrona, la 
 22. Añadir entrada en la BBDD de una factura al realizar la compra.
 23. Arreglado el registro de nuevos usuarios.
 24. La dirección asociada a cada usuario se muestra correctamente y cambia.
+25. Se añadió la biblioteca FPDF
+26. Añadida funcionalidad para imprimir PDF
 
 
 ## 3.- ¿Cómo se ha hecho?

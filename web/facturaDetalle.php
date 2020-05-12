@@ -16,6 +16,9 @@
     // Si la factura pertenece al usuario se devuelve un objeto. En caso contrario devuelve null, así que si ha devuelto null, redirigimos al usuario
     if($factura == null){
         echo "<script>window.location.href='user_panel.php';</script>";
+    }else{
+        // Si el usuario tiene permisos, se almacena la factura en una sesion
+        $_SESSION["factura"] = $factura;
     }
 
 ?>
