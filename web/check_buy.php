@@ -1,4 +1,9 @@
 <?php 
+    require_once("user_model.php");
+    require_once("product.php");
+    require_once("product_model.php");
+
+
     // El array que se espera recibir con POST es de la siguiente forma:
         // {[idex]id - [index]cantidad]}, {[idex]id - [index]cantidad]}...
         // por tanto lo primero que voy a hacer es actualizar las cantidades por si no lo hubiera hecho correctamente el usuario
@@ -27,7 +32,26 @@
         
         // Comprobar que hay un usuario logueado
         if(isset($_SESSION["username"])){
-            echo "hola";
+            // Si el usuario está logueado, actualizar el carrito (actualizar precios y ofertas por lo que pueda pasar)
+            foreach($_SESSION["cart"] as $key => $producto_carrito){
+                // Pedir los datos del producto 
+                // Petición a product_model para obtener los datos del producto
+                $productoJSON = ProductModel::getSimpleProduct($producto_carrito["id"]);
+                if($productoJSON != null){
+                    // Se decodifica el JSON obtenido
+                    $productoJSON = json_decode($productoJSON, true);
+                    $producto = new Product($productoJSON[0]["nombre"], $productoJSON[0]["id"], $productoJSON[0]["precio"], $productoJSON[0]["oferta"], $productoJSON[0]["imagen"]);
+
+                    // Hay que modificar la sesion para sobreescribir los datos y actualizarlos
+                    $_SESSION["cart"][$key] = array('id' => $producto->getId(), 'nombre' => $producto->getNombre(), 'cantidad' => $producto_carrito["cantidad"], 'imagen' => $producto->getImagen(), 
+                        'precioFinal' => $producto->getPrecioFinal(), 'precio' => $producto->getPrecio(), 'oferta' => $producto->getOferta());
+                }else{
+                    // Si devuelve null, es que no ha encontrado el id, por tanto se vuelve al index
+                    //echo "<script>window.location.href='index.php';</script>";
+                    echo "algo ha ido mal";
+                }
+                
+            }
         }else{
             echo "adios";
         }
