@@ -69,12 +69,34 @@
             $myJSON = json_encode($_SESSION["cart"]);
             echo "<br>";
             echo $myJSON;
-            $resultado = UserModel::crearFactura($_SESSION["username"], $myJSON);
+            //$resultado = UserModel::crearFactura($_SESSION["username"], $myJSON);
             echo "<br>";
-            echo $resultado;
+            //echo $resultado;
 
             echo "<br>";
             echo "<br>";
+            // Ahora hay que recuperar una factura cualquiera y mostrarla
+            $resultado = UserModel::getFacturaConcreta($_SESSION["username"], 4);
+            print_r($resultado);
+            // Se decodifica el carro de la factura en formato JSON
+            echo "<br>";
+            echo "<br>";
+            $carroJSON = json_decode($resultado["carro"], true);
+            print_r($carroJSON);
+            // Ahora que se tiene el carro en JSON, hay que distinguir en productos individuales
+            foreach($carroJSON as $key => $producto){
+                echo "<br>";
+                echo $producto['id'];
+                echo $producto['precio'];
+                echo $producto['oferta'];
+                echo $producto['cantidad'];
+                echo $producto['imagen'];
+                echo $producto['precioFinal'];
+                $total = $producto['precioFinal'] * $producto['cantidad'];
+                echo $total;
+                echo "<br>";
+            }
+
 
         }else{
             echo "adios";
