@@ -175,6 +175,21 @@
                 <div class="mb-5 row col-12">
                     <h5 class="col-6 text-right">Total: </h5><h5 class="col-6" id="total-carrito"> <?php echo $total?> €</h5>
                 </div>
+                <div class="mb-1 row col-12">
+                    <h5 class="col-6 text-leftt">Datos de envío</h5>
+                </div>
+                <div class='form-group'>
+                    <label for='calle' class='text-dark'>calle</label>
+                    <input type='text' name='calle' class='form-control' id='calle' value='<?php if($direccion != NULL) echo $direccion["calle"]; ?>' required>
+                </div>
+                <div class='form-group'>
+                    <label for='numero' class='text-dark'>número</label>
+                    <input type="number" name='numero' class='form-control' id='numero' value='<?php if($direccion != NULL) echo $direccion["numero"]; ?>' required>
+                </div>
+                <div class='form-group'>
+                    <label for='cp' class='text-dark'>código postal</label>
+                    <input type="number" name='cp' class='form-control' id='cp' value='<?php if($direccion != NULL) echo $direccion["cp"]; ?>' required>
+                </div>
                 <button type="submit" name="confirmar" class="btn btn-primary float-right">Confirmar pedido</button>
             </form>
         </div>

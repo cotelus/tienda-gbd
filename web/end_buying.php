@@ -4,9 +4,12 @@
 
     session_start();
     // Si el usuario no debiera estar aquí, se le redirige
-    if(!isset($_POST["confirmar"], $_SESSION["username"])){
+    if(!isset($_POST["confirmar"], $_SESSION["username"], $_POST["calle"], $_POST["numero"], $_POST["cp"])){
         echo "<script>window.location.href='user_panel.php';</script>";
     }
+
+    // Se guarda la dirección del usuario
+    $direccion = UserModel::setDireccion($_SESSION["username"],  $_POST["calle"], $_POST["numero"], $_POST["cp"]);
 
     // Se codifica $_SESSION["cart"] en formato JSON
     $myJSON = json_encode($_SESSION["cart"]);
@@ -103,14 +106,6 @@
         </div>
     </div>
 </div>
-
-<?php
-    $direccion = UserModel::getDireccion($_SESSION["username"]);
-    print_r($direccion);
-?>
-
-
-
 
 <!-- modal del carrito -->
 <div class="modal fade" id="carritoForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

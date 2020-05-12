@@ -245,6 +245,53 @@ class UserModel{
         }
     }
 
+    public function setDireccion($username,  $calle, $numero, $cp){
+        $id = UserModel::getUserId($username);
+
+        $resultado = false;
+
+        // Si el usuario ya guardó una direccion, hay que modificarla.
+            // Si no guardó ninguna, habrá que crear una nueva
+        try{
+            $db = Db::conectar();
+
+            // Lo primero va a ser comprobar si existe una direccion sociada al usuario
+            $sql = $db->prepare("SELECT * FROM direccion WHERE usuario= :id");
+            $sql->bindValue(":id", $id);
+            $sql->execute();
+
+            $num_registro = $sql->rowCount();
+
+            // Hay problemas actualizando los campos de direccion, así que si existe ya una direccion asociada se borra y se crea una nueva
+            if($num_registro != 0){
+                $sql = $db->prepare("DELETE FROM direccion WHERE usuario = :usuario");
+                $sql->bindValue(":usuario", $id);
+
+                $sql->execute();
+
+                $resultado = true;
+            }
+
+            $sql = $db->prepare("INSERT INTO `direccion`( `usuario`, `calle`, `numero`, `cp`) VALUES (:usuario, :calle, :numero, :cp)");
+            $sql->bindValue(":usuario", $id);
+            $sql->bindValue(":calle", $calle);
+            $sql->bindValue(":numero", $numero);
+            $sql->bindValue(":cp", $cp);
+
+            $sql->execute();
+
+            $resultado = true;
+
+            $db = Db::cerrarConexion();
+
+            return $resultado;
+
+        }catch(Exception $e){
+            die("Error: " . $e->getMessage());
+        }
+
+    }
+
     
 }
 ?>
