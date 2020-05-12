@@ -124,7 +124,10 @@
         </table>
         <h4 class="col-12 mx-auto">TOTAL: <?php echo $factura["importe_total"] ?>€</h4>
         <hr>
-        <a type="button" class="col-12 ml-2 btn btn-danger" href="print_factura.php">Imprimir factura en PDF</a>
+        <form action="print_factura.php" method="POST">
+            <input type="hidden" name="factura-id" value="<?php echo $id?>">
+            <button type="submit" name="imprimir" class="col-12 ml-2 btn btn-danger">Imprimir factura en PDF</button>
+        </form>
     </div>
 </div>
 
