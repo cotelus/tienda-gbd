@@ -37,6 +37,8 @@ Por otra parte, al no hacer uso de tecnologías de comunicación asíncrona, la 
 20. Filtrar facturas para aumentar seguridad.
 21. Vista en detalle da cada factura.
 22. Añadir entrada en la BBDD de una factura al realizar la compra.
+23. Arreglado el registro de nuevos usuarios.
+24. La dirección asociada a cada usuario se muestra correctamente y cambia.
 
 
 ## 3.- ¿Cómo se ha hecho?
@@ -50,8 +52,4 @@ Con la visión global del problema y los puntos problemáticos y cómo afrontarl
 ## 4.- ¿Qué queda por terminar?
 En este momento, queda por terminar:
 
-1. Registro de nuevos usuarios. (He modificado los elementos necesarios para darse de alta en el sitio, pero no he actualizado esos elementos en la creación de la nueva fila en la BBDD y da error. Es algo muy sencillo de solucionar, pero no es prioritario).
-5. Añadir sección de confirmar pago que realice las comprobaciones pertinentes sobre productos, precio y stock y actualice la BBDD
-6. Cambiar almacenamiento del carrito de sesiones a cookies.
-7. Añadir pasarela de pago.
-9. Pasar facturas a PDF.
+1. Pasar facturas a PDF
