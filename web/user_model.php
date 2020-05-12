@@ -209,6 +209,42 @@ class UserModel{
         }
     }
 
+    // Por defecto solo se va a guardar una direccion por cada usuario
+    public function getDireccion($username){
+        
+        $id = UserModel::getUserId($username);
+
+        $resultado = NULL;
+
+        try{
+            $db = Db::conectar();
+
+            // Lo primero va a ser comprobar si existe este usuario.
+            $sql = $db->prepare("SELECT * FROM direccion WHERE usuario= :id");
+            $sql->bindValue(":id", $id);
+            $sql->execute();
+
+            $num_registro = $sql->rowCount();
+
+            // Si el numero de registros no es 0, el usuario existe, por lo tanto, devuelvo los datos necesarios
+            if($num_registro != 0){
+                if($row = $sql->fetch(PDO::FETCH_ASSOC)){
+                    $resultado = array();
+                    $resultado["calle"] = $row["calle"];
+                    $resultado["numero"] = $row["numero"];
+                    $resultado["cp"] = $row["cp"];
+                }
+            }
+
+            $db = Db::cerrarConexion();
+
+            return $resultado;
+
+        }catch(Exception $e){
+            die("Error: " . $e->getMessage());
+        }
+    }
+
     
 }
 ?>

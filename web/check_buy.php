@@ -56,6 +56,9 @@
                 echo "<script>window.location.href='index.php';</script>";
             }
         }
+        // Si todo ha ido bien y se ha llegado hasta aquí, se recuperan los datos de dirección si hubiese para mostrarlos
+        $direccion = UserModel::getDireccion($_SESSION["username"]);
+
 
     }else{
         // Si no cumple ninguna condición para modificar el carro o confirmar la compra, devolvemos al usuario al index

@@ -99,6 +99,10 @@ class ProductModel{
             $actualizar->bindValue('id', $producto->getId());
             $actualizar->bindValue('nombre', $producto->getNombre());
             $actualizar->bindValue('precio', $producto->getPrecio());
+            // Si la oferta es mayor de 95, se deja en 95.
+            if( $producto->getOferta() > 95){
+                $producto->setOferta(95);
+            }
             $actualizar->bindValue('oferta', $producto->getOferta());
             $actualizar->bindValue('imagen', $producto->getImagen());
 
@@ -150,6 +154,10 @@ class ProductModel{
                 $sql->bindValue(":nombre",  $product->getNombre());
                 $sql->bindValue(":imagen",  $product->getImagen());
                 $sql->bindValue(":precio",  $product->getPrecio());
+                // Si la oferta es mayor de 95, se deja en 95.
+                if( $product->getOferta() > 95){
+                    $product->setOferta(95);
+                }
                 $sql->bindValue(":oferta",  $product->getOferta());
 
                 $sql->execute();

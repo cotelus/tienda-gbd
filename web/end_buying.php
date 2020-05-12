@@ -104,6 +104,11 @@
     </div>
 </div>
 
+<?php
+    $direccion = UserModel::getDireccion($_SESSION["username"]);
+    print_r($direccion);
+?>
+
 
 
 
